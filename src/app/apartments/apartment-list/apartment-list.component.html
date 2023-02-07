@@ -1,0 +1,12 @@
+<!-- <div class="pull-right">
+  <button>Add New Apartment</button>
+</div> -->
+<!-- <a href="#" *ngFor="let apartment of apartments">
+    <app-apartment-item></app-apartment-item>
+</a> -->
+<div class="apartment-container">
+  <app-apartment-item *ngFor="let apartment of apartments" [apartment]="apartment"></app-apartment-item>
+  <!-- <div *ngIf="apartment"></div> -->
+</div>
+<router-outlet></router-outlet>
+<!-- <a class="btn btn-warning" [routerLink]="['new']">New Assignment</a> -->

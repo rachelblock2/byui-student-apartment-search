@@ -1,0 +1,12 @@
+<div *ngFor="let image of apartment.images">
+    <div class="apt-img-holder">
+      <img [src]="image" [alt]="image" />
+    </div>
+</div>
+<!-- <img [src]="apartment.images[0]" [alt]="apartment.name" class="img-responsive"> -->
+<h1>{{ apartment.name }}</h1>
+<p>{{ apartment.address }}</p>
+<p>{{ apartment.amenities }}</p>
+<p>{{apartment.price}}</p>
+<button>Add to Favorites</button>
+<a [href]="apartment.url">{{apartment.url}}</a>

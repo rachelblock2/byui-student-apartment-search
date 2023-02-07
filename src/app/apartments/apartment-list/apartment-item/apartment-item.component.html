@@ -1,0 +1,23 @@
+<div class="apartment-info">
+  <p id="spacer"></p>
+  <div class="apt-title-holder">
+    <h2>{{ apartment.name }}</h2>
+  </div>
+  <!-- <div class="apartment-details"> -->
+  <!-- <div *ngFor="let image of apartment.images; let i = index"> -->
+  <div class="apt-img-holder">
+    <img [src]="apartment.images[0]" alt="{{ apartment.images[0] }}" />
+  </div>
+  <!-- </div>
+    <p>{{ apartment.address }}</p> -->
+  <!-- <h3>Amenities include:</h3> -->
+  <!-- <span *ngFor="let amenitity of apartment.amenities;">
+      <p>{{ amenitity }}</p>
+    </span> -->
+  <h3>Semester Price: ${{ apartment.price }}</h3>
+  <div>
+    <a [routerLink]="['details', apartment._id]">View Details</a>
+  </div>
+  <p id="spacer"></p>
+  <!-- </div> -->
+</div>

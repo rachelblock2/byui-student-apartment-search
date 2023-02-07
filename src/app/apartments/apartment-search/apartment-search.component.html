@@ -1,0 +1,128 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm)">
+        <!-- <label for="courseName">Class Name:</label>
+          <input
+          type="text"
+          id="courseName"
+          formControlName="courseName"
+          class="form-control">
+          <span 
+          *ngIf="!signupForm.get('courseName').valid && signupForm.get('courseName').touched" 
+          class="help-block">
+          <span *ngIf="signupForm.get('courseName').errors['required']">This field is required!</span>
+        </span>-->
+        <label>Price:</label>
+        <div>
+          <p>$
+            <mat-slider formControlName="price" thumbLabel tickInterval="1" min="100" max="700" step="50" value="400"></mat-slider>
+            per month
+          </p>
+        </div>
+
+        <!-- <label for="price"
+          >Price
+          <div id="range_count">
+            <input
+              type="range"
+              formControlName="price"
+              class="form-control"
+              value="5"
+              min="1"
+              max="10"
+              step="1"
+              list="tickmarks"
+            />
+            oninput="adjustRating(this.value)"
+              onchange="adjustRating(this.value)" -->
+            <!-- <span id="rate">5</span> -->
+          <!-- </div>
+        </label>
+        <datalist id="tickmarks">
+          <option value="100"></option>
+          <option value="200"></option>
+          <option value="300"></option>
+          <option value="400"></option>
+          <option value="500"></option>
+          <option value="600"></option>
+          <option value="700"></option>
+          <option value="800"></option>
+          <option value="900"></option>
+          <option value="1000"></option>
+        </datalist>  -->
+
+        <input
+          type="text"
+          id="price"
+          formControlName="price"
+          class="form-control"
+        />
+        <span
+          *ngIf="
+            !searchForm.get('price').valid && searchForm.get('price').touched
+          "
+          class="help-block"
+        >
+          <span *ngIf="searchForm.get('price').errors['required']"
+            >This field is required!</span
+          >
+        </span>
+        <!-- <label for="dueDate">Assignment Due Date:</label>
+                <input
+                type="date"
+                id="dueDate"
+                formControlName="dueDate"
+                class="form-control">
+                <span 
+                *ngIf="!signupForm.get('dueDate').valid && signupForm.get('dueDate').touched" 
+                class="help-block">
+                <span *ngIf="signupForm.get('dueDate').errors['required']">This field is required!</span>
+                </span>
+              <label for="color">Assignment Color Code:</label>
+                <input
+                type="color"
+                id="color"
+                formControlName="color"
+                class="form-control">
+                <div class="list-group-item">{{ assignment?.color }}</div>
+              <label for="notes">Assignment Notes:</label>
+                <textarea 
+                name="notes" 
+                id="notes"
+                formControlName="notes"
+                class="form-control" 
+                cols="30" 
+                rows="10"></textarea>
+             <label for="priority">Assignment Priority:</label>
+                <div class="radio" *ngFor="let priority of priorities">
+                    <input
+                        type="radio"
+                        id="priority"
+                        formControlName="priority"
+                        [value]="priority">{{ priority }}
+                </div> -->
+        <div class="checkboxes">
+          <div *ngFor="let amenity of amenities; let i = index">
+            <label>
+              <input
+                type="checkbox"
+                [value]="amenity.value"
+                (change)="onCheckboxChange($event)"
+              />
+              {{ amenity.name }}
+            </label>
+          </div>
+        </div>
+        <p
+          class="error"
+          *ngIf="this.searchForm.controls['checkArray'].errors?.['required']"
+        >
+          Checkbox is required, select at least one value.
+        </p>
+        <button type="submit" value="Submit">Submit</button>
+        <!-- <button class="btn btn-danger" type="button" (click)="onCancel()">Cancel</button> -->
+      </form>
+    </div>
+  </div>
+</div>

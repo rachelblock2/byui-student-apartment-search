@@ -1,0 +1,35 @@
+/* Styles for all sizes and small screen specific styles */
+.checkboxes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: calc(100vh - 50px);
+}
+
+.checkboxes div {
+  padding: 0.2rem 1rem;
+  font-size: 0.7rem;
+}
+
+/* Styles for large screens */
+@media screen and (min-width: 32em) {
+    .checkboxes {
+        grid-template-columns: 1fr 1fr 1fr;
+        height: calc(100vh - 70px);
+    }
+
+    .checkboxes div {
+        font-size: 0.8rem;
+    }
+}
+
+/* Styles for large screens */
+@media screen and (min-width: 62em) {
+    .checkboxes {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        height: calc(100vh - 110px);
+    }
+    .checkboxes div {
+        font-size: 0.9rem;
+        padding: 0.2rem 1rem;
+    }
+}
