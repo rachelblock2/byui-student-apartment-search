@@ -2,62 +2,83 @@
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
       <form [formGroup]="searchForm" (ngSubmit)="onSubmit(searchForm)">
-        <!-- <label for="courseName">Class Name:</label>
-          <input
-          type="text"
-          id="courseName"
-          formControlName="courseName"
-          class="form-control">
-          <span 
-          *ngIf="!signupForm.get('courseName').valid && signupForm.get('courseName').touched" 
-          class="help-block">
-          <span *ngIf="signupForm.get('courseName').errors['required']">This field is required!</span>
-        </span>-->
         <label>Price:</label>
         <div>
-          <p>$
-            <mat-slider formControlName="price" thumbLabel tickInterval="1" min="100" max="700" step="50" value="400"></mat-slider>
-            per month
+          <p>
+            <mat-slider
+              formControlName="price"
+              tickInterval="1"
+              min="100"
+              max="700"
+              step="25"
+            ></mat-slider>
           </p>
+          <span *ngIf="searchForm.get('price').valid"
+            >${{ searchForm.value.price }} or less per month</span
+          >
+        </div>
+        <label>Driving Distance to College:</label>
+        <div>
+          <p>
+            <mat-slider
+              formControlName="driveTimeToCollege"
+              tickInterval="0"
+              min="1"
+              max="30"
+              step="1"
+            ></mat-slider>
+          </p>
+          <span *ngIf="searchForm.get('driveTimeToCollege').valid"
+            >{{ searchForm.value.driveTimeToCollege }}
+            <span *ngIf="searchForm.get('driveTimeToCollege').value === 1"
+              >minute</span
+            ><span *ngIf="searchForm.get('driveTimeToCollege').value > 1"
+              >minutes</span
+            ></span
+          >
+        </div>
+        <label>Walking Distance to College:</label>
+        <div>
+          <p>
+            <mat-slider
+              formControlName="walkTimeToCollege"
+              tickInterval="0"
+              min="1"
+              max="30"
+              step="1"
+            ></mat-slider>
+          </p>
+          <span *ngIf="searchForm.get('walkTimeToCollege').valid"
+            >{{ searchForm.value.walkTimeToCollege }}
+            <span *ngIf="searchForm.get('walkTimeToCollege').value === 1"
+              >minute</span
+            ><span *ngIf="searchForm.get('walkTimeToCollege').value > 1"
+              >minutes</span
+            ></span
+          >
         </div>
 
-        <!-- <label for="price"
-          >Price
-          <div id="range_count">
-            <input
-              type="range"
-              formControlName="price"
-              class="form-control"
-              value="5"
+        <label>Number of Review Stars:</label>
+        <div>
+          <p>
+            <mat-slider
+              formControlName="reviewStars"
+              tickInterval="1"
               min="1"
-              max="10"
+              max="5"
               step="1"
-              list="tickmarks"
-            />
-            oninput="adjustRating(this.value)"
-              onchange="adjustRating(this.value)" -->
-            <!-- <span id="rate">5</span> -->
-          <!-- </div>
-        </label>
-        <datalist id="tickmarks">
-          <option value="100"></option>
-          <option value="200"></option>
-          <option value="300"></option>
-          <option value="400"></option>
-          <option value="500"></option>
-          <option value="600"></option>
-          <option value="700"></option>
-          <option value="800"></option>
-          <option value="900"></option>
-          <option value="1000"></option>
-        </datalist>  -->
+            ></mat-slider>
+          </p>
+          <span *ngIf="searchForm.get('reviewStars').valid"
+            >{{ searchForm.value.reviewStars }} 
+            <span *ngIf="searchForm.get('reviewStars').value === 1"
+              >star</span
+            ><span *ngIf="searchForm.get('reviewStars').value > 1"
+              >stars</span
+            ></span
+          >
+        </div>
 
-        <input
-          type="text"
-          id="price"
-          formControlName="price"
-          class="form-control"
-        />
         <span
           *ngIf="
             !searchForm.get('price').valid && searchForm.get('price').touched
@@ -68,40 +89,6 @@
             >This field is required!</span
           >
         </span>
-        <!-- <label for="dueDate">Assignment Due Date:</label>
-                <input
-                type="date"
-                id="dueDate"
-                formControlName="dueDate"
-                class="form-control">
-                <span 
-                *ngIf="!signupForm.get('dueDate').valid && signupForm.get('dueDate').touched" 
-                class="help-block">
-                <span *ngIf="signupForm.get('dueDate').errors['required']">This field is required!</span>
-                </span>
-              <label for="color">Assignment Color Code:</label>
-                <input
-                type="color"
-                id="color"
-                formControlName="color"
-                class="form-control">
-                <div class="list-group-item">{{ assignment?.color }}</div>
-              <label for="notes">Assignment Notes:</label>
-                <textarea 
-                name="notes" 
-                id="notes"
-                formControlName="notes"
-                class="form-control" 
-                cols="30" 
-                rows="10"></textarea>
-             <label for="priority">Assignment Priority:</label>
-                <div class="radio" *ngFor="let priority of priorities">
-                    <input
-                        type="radio"
-                        id="priority"
-                        formControlName="priority"
-                        [value]="priority">{{ priority }}
-                </div> -->
         <div class="checkboxes">
           <div *ngFor="let amenity of amenities; let i = index">
             <label>

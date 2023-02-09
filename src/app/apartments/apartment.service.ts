@@ -62,8 +62,22 @@ export class ApartmentService {
   // which then you can use to filter the apartments via the find method, which will
   // also need to be a new endpoint on the backend
 
-  getDistance() {
-    return this.http.get('http://localhost:3000/apartments/distance');
+  getDistance(apartment: Apartment) {
+    // this.http.post<{ message: string, assignment: Assignment }>('http://localhost:3000/assignments/',
+    //   assignment,
+    //   { headers: headers })
+    //   .subscribe(
+    //     (responseData) => {
+    //       // add new assignment to assignments
+    //       assignment.id = responseData.assignment.id;
+    //       this.assignments.push(responseData.assignment);
+    //       this.sortAndSend();
+    //     }
+    //   )
+    let apartmentLocation = encodeURIComponent(apartment.address.trim());
+    this.http.post<any>('http://localhost:3000/apartments/distance', apartmentLocation).subscribe(data => {
+      return apartment.address
+  });
   }
 
   getApartment(_id: string) {

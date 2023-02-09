@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSliderModule} from '@angular/material/slider';
+import { ApartmentCarouselComponent } from './apartments/apartment-carousel/apartment-carousel.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {MatSliderModule} from '@angular/material/slider';
     ApartmentDetailComponent,
     ApartmentItemComponent,
     ApartmentSearchComponent,
-    HeaderComponent
+    HeaderComponent,
+    ApartmentCarouselComponent
   ],
   imports: [
     BrowserModule,

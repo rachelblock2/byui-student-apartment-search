@@ -14,7 +14,6 @@ export class ApartmentSearchComponent implements OnInit {
   // originalApartment: Apartment;
   // editMode: boolean = false;
   searchForm: FormGroup;
-  priorities = ['High', 'Medium', 'Low'];
   amenities: Array<any> = [
     { name: 'Washer/Dryer in unit', value: 'washerDryerInUnit' },
     { name: 'Study Rooms', value: 'studyRooms' },
@@ -50,8 +49,10 @@ export class ApartmentSearchComponent implements OnInit {
     
     ngOnInit() {
       this.searchForm = this.formBuilder.group({
-        price: new FormControl([0, Validators.min(500)]),
-        // price: new FormControl(null, [Validators.required]),
+        price: new FormControl(100, [Validators.min(100)]),
+        driveTimeToCollege: new FormControl(1, [Validators.min(1)]),
+        walkTimeToCollege: new FormControl(1, [Validators.min(1)]),
+        reviewStars: new FormControl(1, [Validators.min(1)]),
         checkArray: this.formBuilder.array([], [Validators.required])
       })
     }

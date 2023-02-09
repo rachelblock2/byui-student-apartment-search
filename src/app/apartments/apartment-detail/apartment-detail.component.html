@@ -1,12 +1,11 @@
-<div *ngFor="let image of apartment.images">
-    <div class="apt-img-holder">
-      <img [src]="image" [alt]="image" />
-    </div>
-</div>
-<!-- <img [src]="apartment.images[0]" [alt]="apartment.name" class="img-responsive"> -->
+<div class="apt-details">
+<app-apartment-carousel [apartment]="apartment"></app-apartment-carousel>
 <h1>{{ apartment.name }}</h1>
-<p>{{ apartment.address }}</p>
-<p>{{ apartment.amenities }}</p>
-<p>{{apartment.price}}</p>
-<button>Add to Favorites</button>
-<a [href]="apartment.url">{{apartment.url}}</a>
+<p>Location: {{ apartment.address }}</p>
+<p>Distance from Campus: </p>
+<p>Amenities: {{ apartment.amenities.join(', ') }}</p>
+<p>${{ apartment.price }} per semester</p>
+<p>${{ apartment.price / 3 | number:'3.1-2'}} per month of the semester</p>
+<a [href]="apartment.url">{{ apartment.url }}</a>
+<button><a>Add to Favorites</a></button>
+</div>
