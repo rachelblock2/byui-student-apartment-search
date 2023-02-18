@@ -20,64 +20,73 @@ export class ApartmentService {
   }
 
   getApartments() {
-    this.http
-      .get<{ apartments: Apartment[] }>('http://localhost:3000/apartments/')
-      .subscribe(
-        (response) => {
-          console.log(response);
-          this.apartments = response.apartments;
+    if (this.apartments.length > 0) {
+      this.sortAndSend();
+    } else {
+      this.http
+        .get<{ apartments: Apartment[] }>('http://localhost:3000/apartments/')
+        .subscribe(
+          (response) => {
+            console.log(response);
+            this.apartments = response.apartments;
             this.sortAndSend();
-        },
-        (error: any) => {
-          console.log(error.message);
-        }
-      );
+          },
+          (error: any) => {
+            console.log(error.message);
+          }
+        );
+    }
   }
 
-  findFilteredApartments(apartmentFilterData) {
-    if (!apartmentFilterData) {
-      return;
-    }
+  getFilteredApartments(apartmentFilterData: {
+    price;
+    walkTimeToCollege;
+    driveTimeToCollege;
+    reviewStars;
+    aptGenderOptions;
+    amenities;
+  }) {
+    this.http
+      .get<{ apartments: Apartment[] }>(
+        'http://localhost:3000/apartments/filtered',
+        {
+          params: {
+            price: apartmentFilterData.price,
+            walkTime: apartmentFilterData.walkTimeToCollege,
+            driveTime: apartmentFilterData.driveTimeToCollege,
+            reviewStars: apartmentFilterData.reviewStars,
+            aptGenderOptions: apartmentFilterData.aptGenderOptions,
+            amenities: apartmentFilterData.amenities,
+          },
+        }
+      )
+      .subscribe((response) => {
+        console.log(response);
+        this.apartments = response.apartments;
+        this.sortAndSend();
+      });
+    // } else {
+    //   return 'hi';
+    // }
 
     // make sure _id of new apartment is empty
     // apartment._id = '';
-
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-    // send data to database to return apartments that match data
-    // this.http
-    //   .post<{ message: string; apartment: Apartment }>(
-    //     'http://localhost:3000/apartments/',
-    //     apartment,
-    //     { headers: headers }
-    //   )
-    //   .subscribe((responseData) => {
-    //     // add new apartment to apartments
-    //     apartment._id = responseData.apartment._id;
-    //     this.apartments.push(responseData.apartment);
-    //     this.sortAndSend();
-    //   });
   }
-  // todo: create post method to submit the body of data, aka the data search filters to the backend,
-  // which then you can use to filter the apartments via the find method, which will
-  // also need to be a new endpoint on the backend
 
-  getDistance(apartment: Apartment) {
-    // this.http.post<{ message: string, assignment: Assignment }>('http://localhost:3000/assignments/',
-    //   assignment,
-    //   { headers: headers })
-    //   .subscribe(
-    //     (responseData) => {
-    //       // add new assignment to assignments
-    //       assignment.id = responseData.assignment.id;
-    //       this.assignments.push(responseData.assignment);
-    //       this.sortAndSend();
-    //     }
-    //   )
-    let apartmentLocation = encodeURIComponent(apartment.address.trim());
-    this.http.post<any>('http://localhost:3000/apartments/distance', apartmentLocation).subscribe(data => {
-      return apartment.address
-  });
+  getWalkingDistance(apartment: Apartment) {
+    let location = encodeURIComponent(apartment.address.trim());
+    return this.http.get<any>(
+      'http://localhost:3000/apartments/distance/walking',
+      { params: { location: location } }
+    );
+  }
+
+  getDrivingDistance(apartment: Apartment) {
+    let location = encodeURIComponent(apartment.address.trim());
+    return this.http.get<any>(
+      'http://localhost:3000/apartments/distance/driving',
+      { params: { location: location } }
+    );
   }
 
   getApartment(_id: string) {

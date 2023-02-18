@@ -1,5 +1,8 @@
 <div class="apartment-container">
-  <app-apartment-item *ngFor="let apartment of apartments" [apartment]="apartment"></app-apartment-item>
-  <!-- <div *ngIf="apartment"></div> -->
+  <div class="apartment-data">
+    <app-apartment-item *ngFor="let apartment of apartments" [apartment]="apartment"></app-apartment-item>
+  </div>
+  <div class="apartment-details">
+    <router-outlet></router-outlet>
+  </div>
 </div>
-<router-outlet></router-outlet>

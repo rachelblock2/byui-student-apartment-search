@@ -1,5 +1,6 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Apartment } from '../apartment.model';
+// import * as $ from "jquery";
 declare const $: any;
 
 @Component({

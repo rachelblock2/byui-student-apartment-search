@@ -1,3 +1,4 @@
+require('dotenv').config()
 // Get dependencies
 let express = require('express');
 let path = require('path');
@@ -10,6 +11,8 @@ let logger = require('morgan');
 let index = require('./server/routes/app');
 
 const apartmentRoutes = require('./server/routes/apartments');
+
+const authRoutes = require('./server/routes/auth');
 
 let app = express(); // create an instance of express
 
@@ -43,6 +46,7 @@ app.use(express.static(path.join(__dirname, 'dist/byui-student-apartment-search'
 // Tell express to map the default route ('/') to the index route
 app.use('/', index);
 app.use('/apartments', apartmentRoutes);
+app.use('/auth', authRoutes);
 
 // Tell express to map all other non-defined routes back to the index page
 app.get('*', (req, res) => {

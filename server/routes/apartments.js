@@ -1,106 +1,70 @@
 let express = require('express');
 let router = express.Router();
-// const sequenceGenerator = require('./sequenceGenerator');
-const Apartment = require('../models/apartment');
-var axios = require('axios');
-const {ObjectId} = require('mongodb');
+const isAuth = require('../middleware/isAuth');
+const apartmentController = require('../controllers/apartment');
 
-router.get('/', (req, res, next) => {
-  Apartment.find()
-    .then(apartments => {
-      console.log(apartments);
-      res.status(200).json({
-        apartments: apartments
-      });
-      // console.log(apartments);
-    })
-    .catch(error => {
-      res.status(500).json({
-        message: 'An error occurred HERE',
-        error: error
-      });
-    })
-});
+// Gets all the apartments
+router.get('/', apartmentController.getApartments);
 
-router.get('/distance', (req, res, next) => {
-  var config = {
-    method: 'get',
-    url: 'https://maps.googleapis.com/maps/api/distancematrix/json?destinations=4976%20Naniloa%20Drive%20Holladay%2C%20UT&origins=266%20W%203rd%20S%20Rexburg%2C%20ID&units=imperial&key=AIzaSyA-mJcglZSokFda-QAwIIzGX2T-cg2GR0A',
-    headers: {}
-  };
+// Gets the apartments that match the filters in the user's search
+router.get('/filtered/', apartmentController.getFilteredApartments);
 
-  axios(config)
-    .then(function (response) {
-      res.send(JSON.stringify(response.data));
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-})
+// Gets the walking time between the college and apartment complex
+router.get('/distance/walking/', apartmentController.getWalkingTime);
 
-router.get('/details/:id', (req, res, next) => {
-  let id = ObjectId(req.params.id);
-  Apartment.findOne({"_id": id})
-    .then(apartment => {
-      console.log(apartment)
-      res.status(200).json({
-        message: 'Successfully found apartment!',
-        apartment: apartment
-      });
-    })
-    .catch(error => {
-      res.status(500).json({
-        message: 'An error occurred',
-        error: error
-      });
-    })
-});
+// Gets the driving time between the college and apartment complex
+router.get('/distance/driving/', apartmentController.getDrivingTime)
 
-router.post('/', (req, res, next) => {
-  Apartment.findOne({
-    "id": req.params.id
-  })
-  .then(apartment => {
-    res.status(200).json({
-      message: 'Successfully found assignment!',
-      apartment: apartment
-    });
-  })
-  .catch(error => {
-    res.status(500).json({
-      message: 'An error occurred',
-      error: error
-    });
-  })
+// Gets an individual apartment's details
+router.get('/details/:id', apartmentController.getApartment);
+
+// router.post('/', (req, res, next) => {
+//   Apartment.findOne({
+//       "id": req.params.id
+//     })
+//     .then(apartment => {
+//       res.status(200).json({
+//         message: 'Successfully found assignment!',
+//         apartment: apartment
+//       });
+//     })
+//     .catch(error => {
+//       res.status(500).json({
+//         message: 'An error occurred',
+//         error: error
+//       });
+//     })
 
   // const maxApartmentId = sequenceGenerator.nextId("apartments");
-  console.log(maxApartmentId);
+  // console.log(maxApartmentId);
 
-  const apartment = new Apartment({
-    id: maxAssignmentId,
-    courseName: req.body.courseName,
-    assignmentName: req.body.assignmentName,
-    dueDate: req.body.dueDate,
-    priority: req.body.priority,
-    color: req.body.color,
-    notes: req.body.notes
-  });
+  // const apartment = new Apartment({
+  //   id: maxAssignmentId,
+  //   courseName: req.body.courseName,
+  //   assignmentName: req.body.assignmentName,
+  //   dueDate: req.body.dueDate,
+  //   priority: req.body.priority,
+  //   color: req.body.color,
+  //   notes: req.body.notes
+  // });
 
-  assignment.save()
-    .then(createdAssignment => {
-      res.status(201).json({
-        message: 'Assignment added successfully',
-        assignment: createdAssignment
-      });
-    })
-    .catch(error => {
-      res.status(500).json({
-        message: 'An error occurred',
-        error: error
-      });
-    });
-});
+  // assignment.save()
+  //   .then(createdAssignment => {
+  //     res.status(201).json({
+  //       message: 'Assignment added successfully',
+  //       assignment: createdAssignment
+  //     });
+  //   })
+  //   .catch(error => {
+  //     res.status(500).json({
+  //       message: 'An error occurred',
+  //       error: error
+  //     });
+  //   });
+// });
 
+
+// Todo: these needs to be changed and protected so only admin can access
 router.put('/:id', (req, res, next) => {
   Assignment.findOne({
       id: req.params.id

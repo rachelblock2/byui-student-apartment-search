@@ -44,14 +44,14 @@ img {
 }
 
 .apartment-info h3 {
-  font-size: 1.3rem;
+  font-size: 1rem;
   margin: 0 2rem;
 }
 
 .apartment-info a {
   display: block;
   padding: 0.7rem;
-  width: 25%;
+  width: 42%;
   font-size: 0.8rem;
   text-align: center;
   text-decoration: none;
@@ -64,7 +64,7 @@ img {
 
 @media only screen and (min-width: 37.5em) {
   .apartment-info {
-    grid-template-rows: 0px 90px 300px 4% 9% 0px;
+    grid-template-rows: 0px 90px 300px 6.5% 9% 0px;
   }
 
   .apt-title-holder {
@@ -73,6 +73,11 @@ img {
 
   .apt-title-holder h2 {
     font-size: 1.1rem;
+  }
+
+  .apartment-info a {
+    width: 52%;
+    margin: 0 1.5rem 1rem;
   }
 }
 

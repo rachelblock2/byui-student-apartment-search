@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)">
+          <label>Username:</label>
+          <div>
+            <input
+                type="text"
+                id="username"
+                formControlName="username"
+                class="form-control">
+            <span *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched"
+              >Username is required!</span
+            >
+          </div>
+
+          <label>Password:</label>
+          <div>
+            <input
+                type="password"
+                id="password"
+                formControlName="password"
+                class="form-control">
+            <span *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched"
+              >Password is required!</span
+            >
+          </div>
+          <button type="submit" value="Submit">Submit</button>
+          <!-- <button class="btn btn-danger" type="button" (click)="onCancel()">Cancel</button> -->
+        </form>
+      </div>
+    </div>
+  </div>
+<div>
+  <h1>Don't have an account yet? Sign up to save your favorite apartments.</h1>
+  <a routerLink="/signup">Account Signup</a>
+</div>
+  

@@ -13,6 +13,8 @@ import { HeaderComponent } from './header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSliderModule} from '@angular/material/slider';
 import { ApartmentCarouselComponent } from './apartments/apartment-carousel/apartment-carousel.component';
+import { LoginComponent } from './account/account-login/login.component';
+import { AccountSignupComponent } from './account/account-signup/account-signup.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { ApartmentCarouselComponent } from './apartments/apartment-carousel/apar
     ApartmentItemComponent,
     ApartmentSearchComponent,
     HeaderComponent,
-    ApartmentCarouselComponent
+    ApartmentCarouselComponent,
+    LoginComponent,
+    AccountSignupComponent
   ],
   imports: [
     BrowserModule,

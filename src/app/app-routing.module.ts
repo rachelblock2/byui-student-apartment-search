@@ -8,6 +8,8 @@ import { ApartmentsComponent } from './apartments/apartments.component';
 import { ApartmentDetailComponent } from './apartments/apartment-detail/apartment-detail.component';
 import { ApartmentListComponent } from './apartments/apartment-list/apartment-list.component';
 import { ApartmentSearchComponent } from './apartments/apartment-search/apartment-search.component';
+import { LoginComponent } from './account/account-login/login.component';
+import { AccountSignupComponent } from './account/account-signup/account-signup.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/apartments', pathMatch: 'full'},
@@ -15,11 +17,8 @@ const appRoutes: Routes = [
     { path: 'details/:id', component: ApartmentDetailComponent}
   ]},
   { path: 'apartment-search', component: ApartmentSearchComponent},
-  // { path: 'apartments', component: ApartmentListComponent, children: [
-  //   { path: 'details', component: ApartmentDetailComponent },
-  //   { path: ':id', component: ApartmentDetailComponent}
-  //   { path: ':id/edit', component: ApartmentEditComponent}
-  // ]}
+  { path: 'account', component: LoginComponent},
+  { path: 'signup', component: AccountSignupComponent}
 ];
 
 @NgModule({

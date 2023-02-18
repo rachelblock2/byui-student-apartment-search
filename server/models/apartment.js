@@ -5,6 +5,7 @@ const apartmentSchema = mongoose.Schema({
    _id: { type: ObjectId, required: true },
    name: { type: String, required: true },
    address: { type: String, required: true },
+   aptGender: { type: String, required: true },
    phone: { type: String, required: true },
    url: { type: String, required: true },
    amenities: { type: [String], required: true },

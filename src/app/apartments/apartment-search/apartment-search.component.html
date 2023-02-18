@@ -8,13 +8,13 @@
             <mat-slider
               formControlName="price"
               tickInterval="1"
-              min="100"
-              max="700"
-              step="25"
+              min="500"
+              max="2000"
+              step="100"
             ></mat-slider>
           </p>
           <span *ngIf="searchForm.get('price').valid"
-            >${{ searchForm.value.price }} or less per month</span
+            >${{ searchForm.value.price }} or less per semester</span
           >
         </div>
         <label>Driving Distance to College:</label>
@@ -89,13 +89,29 @@
             >This field is required!</span
           >
         </span>
+
+
+        <div>
+          <div *ngFor="let aptGenderOption of aptGenderOptions; let i = index">
+            <label>
+              <input
+                type="checkbox"
+                [value]="aptGenderOption"
+                (change)="onCheckboxAptGenderChange($event)"
+              />
+              {{ aptGenderOption }}
+            </label>
+          </div>
+        </div>
+
+
         <div class="checkboxes">
           <div *ngFor="let amenity of amenities; let i = index">
             <label>
               <input
                 type="checkbox"
                 [value]="amenity.value"
-                (change)="onCheckboxChange($event)"
+                (change)="onCheckboxAmenitiesChange($event)"
               />
               {{ amenity.name }}
             </label>
@@ -103,7 +119,7 @@
         </div>
         <p
           class="error"
-          *ngIf="this.searchForm.controls['checkArray'].errors?.['required']"
+          *ngIf="this.searchForm.controls['amenities'].errors?.['required']"
         >
           Checkbox is required, select at least one value.
         </p>

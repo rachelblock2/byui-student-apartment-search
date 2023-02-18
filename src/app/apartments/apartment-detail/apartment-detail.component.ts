@@ -10,9 +10,11 @@ declare var $: any;
   styleUrls: ['./apartment-detail.component.css'],
 })
 export class ApartmentDetailComponent implements OnInit, AfterViewInit {
-  apartment: Apartment = new Apartment('', '', '', '', '', [''], [''], 0);
+  apartment: Apartment = new Apartment('', '', '', '', '', '', [''], [''], 0);
   images: string[];
   id: string;
+  walkTimeToSchool: string;
+  driveTimeToSchool: string;
 
   constructor(
     private apartmentService: ApartmentService,
@@ -23,17 +25,20 @@ export class ApartmentDetailComponent implements OnInit, AfterViewInit {
     this.route.params.subscribe((params: Params) => {
       this.id = params['id'];
       this.apartmentService.getApartment(this.id).subscribe((apartmentData) => {
-        console.log(apartmentData);
         this.apartment = apartmentData.apartment;
-        console.log(this.apartment);
         this.images = apartmentData.apartment.images;
+        this.apartmentService.getWalkingDistance(this.apartment).subscribe((locationData) => {
+          console.log(locationData);
+          this.walkTimeToSchool = locationData.rows[0].elements[0].duration.text;
+          console.log(this.walkTimeToSchool);
+        })
+        this.apartmentService.getDrivingDistance(this.apartment).subscribe((locationData) => {
+          console.log(locationData);
+          this.driveTimeToSchool = locationData.rows[0].elements[0].duration.text;
+          console.log(this.driveTimeToSchool);
+        })
       });
     });
-
-    this.apartmentService.getDistance(this.apartment)
-    // .subscribe((distanceData) => {
-      // console.log(distanceData);
-    // })
   }
 
   ngAfterViewInit() {

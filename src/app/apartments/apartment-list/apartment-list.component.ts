@@ -10,24 +10,29 @@ import { ApartmentService } from '../apartment.service';
   templateUrl: './apartment-list.component.html',
   styleUrls: ['./apartment-list.component.css']
 })
-export class ApartmentListComponent implements OnInit, OnDestroy {
+export class ApartmentListComponent implements OnInit {
   apartments: Apartment[] = [];
   subscription: Subscription;
 
-  constructor(private apartmentService: ApartmentService) { }
+  constructor(private route: ActivatedRoute, private apartmentService: ApartmentService) { }
 
   ngOnInit(): void {
-    this.subscription = this.apartmentService.apartmentListChangedEvent.subscribe(
-      (apartments: Apartment[]) => {
-        this.apartments = apartments;
-      }
-    )
-    this.apartmentService.getApartments();
+    // if (this.route.snapshot.queryParamMap.get('apartments') != "") {
+    //   console.log(this.route.snapshot);
+    // } else {
+      console.log('its empty when component loads in');
+      this.subscription = this.apartmentService.apartmentListChangedEvent.subscribe(
+        (apartments: Apartment[]) => {
+          this.apartments = apartments;
+        }
+      )
+      this.apartmentService.getApartments();
+    // }
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
+  // ngOnDestroy() {
+  //   this.subscription.unsubscribe();
+  // }
 
   // openNewPage() {
   //   this.router.navigate(["/details"])

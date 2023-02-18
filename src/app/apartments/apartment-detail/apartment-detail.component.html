@@ -2,7 +2,8 @@
 <app-apartment-carousel [apartment]="apartment"></app-apartment-carousel>
 <h1>{{ apartment.name }}</h1>
 <p>Location: {{ apartment.address }}</p>
-<p>Distance from Campus: </p>
+<p>Walking distance from Campus: {{ walkTimeToSchool }}</p>
+<p>Driving distance from Campus: {{ driveTimeToSchool }}</p>
 <p>Amenities: {{ apartment.amenities.join(', ') }}</p>
 <p>${{ apartment.price }} per semester</p>
 <p>${{ apartment.price / 3 | number:'3.1-2'}} per month of the semester</p>

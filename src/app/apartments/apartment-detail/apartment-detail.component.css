@@ -1,14 +1,14 @@
 .apt-details {
   display: flex;
   flex-direction: column;
-  width: 25%;
+  /* width: 25%; */
   background-color: #c7c7c7;
   border-radius: 0.4rem;
-  margin: 0 auto 1rem;
+  margin: 1rem auto;
 }
 
 .apt-details h1 {
-  margin: 1rem 1rem 0.3rem;
+  margin: 1rem 4rem 0.3rem;
   font-size: 0.9rem;
   line-height: 1.3rem;
   font-weight: bold;
@@ -16,7 +16,7 @@
 
 .apt-details p,
 .apt-details a {
-  margin: 0.3rem 1rem 0;
+  margin: 0.3rem 4rem 0;
 }
 
 .apt-details > a {
@@ -34,10 +34,16 @@
   background-color: #225b40;
   color: white;
   border-radius: 2rem;
-  margin: 0.5rem 0.8rem;
+  margin: 0.8rem 3.5rem 0.8rem;
 }
 
 button {
   border: transparent;
   background-color: transparent;
+}
+
+@media only screen and (min-width: 37.5rem) {
+  .apt-details h1, .apt-details p, .apt-details a, .apt-details button {
+    margin-left: 1rem;
+  }
 }

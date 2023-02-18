@@ -1,14 +1,13 @@
 .apt-img-holder {
-    /* display: grid; */
     display: flex;
-    /* grid-template-columns: 1fr 1fr 1fr; */
     flex-direction: row;
-    margin-top: 1rem;
+    justify-content: center;
+    margin: 1rem auto 0;
 }
 
 .carousel-inner {
-    width: 200px;
-    height: 200px;
+    width: 240px;
+    height: 240px;
     margin: 0;
 }
 
@@ -30,5 +29,12 @@
     height: 100%;
     padding: 2.3rem 0.2rem;
     border-radius: 0.3rem;
-    margin: auto 0.4rem;
+    margin: auto 0.8rem;
+}
+
+@media only screen and (min-width: 37.5rem) {
+    .carousel-inner {
+        width: 200px;
+        height: 200px;
+    }
 }
