@@ -6,6 +6,7 @@
     <li routerLinkActive="active">
       <a routerLink="/apartment-search">Search Apartments</a>
     </li>
-    <li><a href="/account">My Account</a></li>
+    <li><a *ngIf="jwtTokenCheck === false" routerLink="/login">Login</a></li>
+    <li><a *ngIf="jwtTokenCheck === true" routerLink="/my-account">My Account</a></li>
   </ul>
 </nav>

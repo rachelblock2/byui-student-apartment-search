@@ -15,6 +15,7 @@ import {MatSliderModule} from '@angular/material/slider';
 import { ApartmentCarouselComponent } from './apartments/apartment-carousel/apartment-carousel.component';
 import { LoginComponent } from './account/account-login/login.component';
 import { AccountSignupComponent } from './account/account-signup/account-signup.component';
+import { AccountInfoComponent } from './account/account-info/account-info.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { AccountSignupComponent } from './account/account-signup/account-signup.
     HeaderComponent,
     ApartmentCarouselComponent,
     LoginComponent,
-    AccountSignupComponent
+    AccountSignupComponent,
+    AccountInfoComponent
   ],
   imports: [
     BrowserModule,

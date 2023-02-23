@@ -18,29 +18,17 @@ export class AccountSignupComponent implements OnInit {
 
   ngOnInit(): void {
     this.signupForm = this.formBuilder.group({
-      fname: new FormControl("", [Validators.required]),
-      lname: new FormControl("", [Validators.required]),
-      email: new FormControl("", [Validators.required]),
-      password: new FormControl("", [Validators.required])
+      fname: new FormControl("", [Validators.required, Validators.pattern("^[a-zA-Z]+$")]),
+      lname: new FormControl("", [Validators.required, Validators.pattern("^[a-zA-Z]+$")]),
+      email: new FormControl("", [Validators.required, Validators.email]),
+      password: new FormControl("", [Validators.required, Validators.minLength(7)])
     });
   }
 
   onSubmit({ value }: { value: User }) {
-    let newUser = new User('', value.fname, value.lname, value.email, value.password);
-    this.accountService.signup(newUser);
-
-    // this.subscription =
-    //   this.apartmentService.apartmentListChangedEvent.subscribe(
-    //     (apartments: Apartment[]) => {
-    //       this.apartments = apartments;
-    //       if (this.apartments.length != 0){
-    //         console.log(this.apartments);
-    //         // TODO: how to send the data to the list component, currently data comes through but only as object Object
-    //         this.router.navigate(['/apartments']);
-    //       }
-    //     }
-    //   );
-    // this.apartmentService.getFilteredApartments(aptSearchFilterData.value);
-    this.router.navigate(['/account']);
+    if (this.signupForm.valid) {
+      let newUser = new User('', value.fname, value.lname, value.email, value.password, '');
+      this.accountService.signup(newUser);
+    }
   }
 }

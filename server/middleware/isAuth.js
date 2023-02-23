@@ -20,7 +20,6 @@ module.exports = (req, res, next) => {
             return res.sendStatus(403);
         }
         req.user = user;
-        console.log(req.user);
         next();
     })
 }

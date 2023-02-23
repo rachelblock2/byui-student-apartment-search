@@ -1,0 +1,10 @@
+.container {
+    width: 75%;
+    margin: 7rem auto;
+}
+
+form {
+    padding: 2rem 2.5rem;
+    border: 0.1rem solid #334e58;
+    border-radius: 0.7rem;
+}

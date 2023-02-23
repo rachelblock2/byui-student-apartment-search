@@ -52,11 +52,10 @@ exports.getFilteredApartments = (req, res, next) => {
         console.log(encodeURIComponent(apartment.address.trim()));
         var config = {
           method: 'get',
-          url: 'https://maps.googleapis.com/maps/api/distancematrix/json?destinations=525%20S%20Center%20St%2C%20Rexburg%2C%20ID%2083460&origins=' + encodeURIComponent(apartment.address.trim()) + '&units=imperial&mode=walking&key=AIzaSyDPfMu_qPEvcULIc2jY0EBzyLg8QtfQ3ng',
+          url: 'https://maps.googleapis.com/maps/api/distancematrix/json?destinations=525%20S%20Center%20St%2C%20Rexburg%2C%20ID%2083460&origins=' + encodeURIComponent(apartment.address.trim()) + '&units=imperial&mode=walking&key=' + process.env.API_KEY,
           headers: {}
         };
 
-        // AIzaSyDPfMu_qPEvcULIc2jY0EBzyLg8QtfQ3ng
         axios(config)
           .then(function (response) {
             console.log(response.data.rows[0].elements[0].duration.text.split(' ')[0]);
@@ -71,11 +70,10 @@ exports.getFilteredApartments = (req, res, next) => {
         console.log(encodeURIComponent(apartment.address.trim()));
         var config = {
           method: 'get',
-          url: 'https://maps.googleapis.com/maps/api/distancematrix/json?destinations=525%20S%20Center%20St%2C%20Rexburg%2C%20ID%2083460&origins=' + encodeURIComponent(apartment.address.trim()) + '&units=imperial&mode=driving&key=AIzaSyDPfMu_qPEvcULIc2jY0EBzyLg8QtfQ3ng',
+          url: 'https://maps.googleapis.com/maps/api/distancematrix/json?destinations=525%20S%20Center%20St%2C%20Rexburg%2C%20ID%2083460&origins=' + encodeURIComponent(apartment.address.trim()) + '&units=imperial&mode=driving&key=' + process.env.API_KEY,
           headers: {}
         };
 
-        // AIzaSyDPfMu_qPEvcULIc2jY0EBzyLg8QtfQ3ng
         axios(config)
           .then(function (response) {
             console.log(response.data.rows[0].elements[0].duration.text.split(' ')[0]);

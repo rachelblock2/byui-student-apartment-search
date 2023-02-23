@@ -10,6 +10,7 @@ import { ApartmentListComponent } from './apartments/apartment-list/apartment-li
 import { ApartmentSearchComponent } from './apartments/apartment-search/apartment-search.component';
 import { LoginComponent } from './account/account-login/login.component';
 import { AccountSignupComponent } from './account/account-signup/account-signup.component';
+import { AccountInfoComponent } from './account/account-info/account-info.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/apartments', pathMatch: 'full'},
@@ -17,7 +18,8 @@ const appRoutes: Routes = [
     { path: 'details/:id', component: ApartmentDetailComponent}
   ]},
   { path: 'apartment-search', component: ApartmentSearchComponent},
-  { path: 'account', component: LoginComponent},
+  { path: 'login', component: LoginComponent},
+  { path: 'my-account', component: AccountInfoComponent},
   { path: 'signup', component: AccountSignupComponent}
 ];
 

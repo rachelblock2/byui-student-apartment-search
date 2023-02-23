@@ -15,7 +15,7 @@
               !signupForm.get('fname').valid &&
               signupForm.get('fname').touched
             "
-            >First name is required!</span
+            >First name is required! Please enter your first name.</span
           >
         </div>
         
@@ -32,7 +32,7 @@
               !signupForm.get('lname').valid &&
               signupForm.get('lname').touched
             "
-            >Last name is required!</span
+            >Last name is required! Please enter your last name.</span
           >
         </div>
 
@@ -47,9 +47,10 @@
           <span
             *ngIf="
               !signupForm.get('email').valid &&
-              signupForm.get('email').touched
+              signupForm.get('email').touched &&
+              signupForm.get('email').errors?.email
             "
-            >Email is required!</span
+            >Email is required! Please enter a valid email.</span
           >
         </div>
 
@@ -66,10 +67,10 @@
               !signupForm.get('password').valid &&
               signupForm.get('password').touched
             "
-            >Password is required!</span
+            >Password is required! Please enter at least 7 characters.</span
           >
         </div>
-        <button type="submit" value="Submit">Submit</button>
+        <button type="submit" [disabled]="!signupForm.valid" value="Submit">Submit</button>
         <!-- <button class="btn btn-danger" type="button" (click)="onCancel()">Cancel</button> -->
       </form>
     </div>
