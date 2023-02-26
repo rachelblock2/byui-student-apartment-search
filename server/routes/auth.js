@@ -10,21 +10,21 @@ const authController = require('../controllers/auth');
 //Sign up for an account
 router.post(
     '/signup',
-    [
-       body('email')
-          .isEmail()
-          .withMessage('Please enter a valid email.')
-          .custom((value, { req }) => {
-             return User.findOne({ email: value }).then((userDoc) => {
-                if (userDoc) {
-                   return Promise.reject('Email address exists already!');
-                }
-             });
-          }),
-       body('password').trim().isLength({ min: 7 }),
-       body('fname').trim().not().isEmpty(),
-       body('lname').trim().not().isEmpty(),
-    ],
+   //  [
+   //     body('email')
+   //        .isEmail()
+   //        .withMessage('Please enter a valid email.')
+   //        .custom((value, { req }) => {
+   //           return User.findOne({ email: value }).then((userDoc) => {
+   //              if (userDoc) {
+   //                 return Promise.reject('Email address exists already!');
+   //              }
+   //           });
+   //        }),
+   //     body('password').trim().isLength({ min: 7 }),
+   //     body('fname').trim().not().isEmpty(),
+   //     body('lname').trim().not().isEmpty(),
+   //  ],
     authController.signup
  );
 
@@ -40,8 +40,14 @@ router.post('/login',
 ], 
 authController.login);
 
+// router.post('/token', authController.token);
+
 router.post('/logout', isAuth, authController.logout);
 
 router.get('/user-info/:id', isAuth, authController.getUser);
+
+router.post('/addFavorite', isAuth, authController.addFavorite);
+
+router.post('/deleteFavorite', isAuth, authController.deleteFavorite);
 
 module.exports = router;

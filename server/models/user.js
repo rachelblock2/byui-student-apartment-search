@@ -27,6 +27,10 @@ const userSchema = mongoose.Schema({
   salt: {
     type: String,
     required: true
+  },
+  favorites: {
+    type: [{type: mongoose.Schema.Types.ObjectId, ref: 'Apartment'}],
+    required: true
   }
 });
 

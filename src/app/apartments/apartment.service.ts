@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { Apartment } from './apartment.model';
 
@@ -10,7 +11,7 @@ export class ApartmentService {
   apartmentListChangedEvent = new Subject<Apartment[]>();
   apartments: Apartment[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private router: Router, private http: HttpClient) {}
 
   sortAndSend() {
     this.apartments.sort((a, b) =>
@@ -173,5 +174,11 @@ export class ApartmentService {
         this.apartments.splice(position, 1);
         this.sortAndSend();
       });
+  }
+
+  closeDetails() {
+    this.router.navigate(["apartments"]);
+    document.querySelector('.apartment-modal').classList.remove('background');
+    document.querySelector('.apartment-details').classList.remove('show');
   }
 }

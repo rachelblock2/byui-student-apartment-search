@@ -1,10 +1,78 @@
 .container {
-    width: 75%;
-    margin: 7rem auto;
+  width: 75%;
+  margin: 7rem auto;
 }
 
 form {
-    padding: 2rem 2.5rem;
-    border: 0.1rem solid #334e58;
-    border-radius: 0.7rem;
+  padding: 2rem 2.5rem;
+  background-color: #3d7c5e;
+  color: white;
+  border-radius: 0.7rem;
+}
+
+input {
+  margin-bottom: 0.7rem;
+  border: 2px solid #225b40;
+}
+
+button[type="submit"] {
+  display: block;
+  padding: 0.7rem;
+  width: 34%;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid #18402e;
+  color: #225b40;
+  border-radius: 2rem;
+  margin: 1.1rem 0 0;
+}
+
+button[type="submit"]:hover {
+  background-color: #18402e;
+  color: white;
+  border: 2px solid white;
+  transition: 0.3s ease;
+}
+
+a:hover {
+  background-color: #225b40;
+  color: white;
+  font-weight: bold;
+  border: 2px solid white;
+  transition: 0.3s ease;
+}
+
+h1 {
+  font-size: 1rem;
+  line-height: 1.4rem;
+  padding: 1rem 1rem 0 1rem;
+}
+
+a {
+  display: block;
+  padding: 0.7rem;
+  width: 42%;
+  font-size: 0.8rem;
+  text-align: center;
+  text-decoration: none;
+  background-color: white;
+  border: 2px solid #18402e;
+  color: #225b40;
+  border-radius: 2rem;
+  margin: 0 1rem 0;
+  transition: 0.3s ease;
+}
+
+@media only screen and (min-width: 37.5rem) {
+  .container {
+    width: 50%;
+  }
+}
+
+@media only screen and (min-width: 60rem) {
+  .container {
+    width: 40%;
+  }
 }

@@ -1,8 +1,9 @@
+<div class="apartment-modal" (click)="closeDetails()"></div>
 <div class="apartment-container">
   <div class="apartment-data">
     <app-apartment-item *ngFor="let apartment of apartments" [apartment]="apartment"></app-apartment-item>
-  </div>
-  <div class="apartment-details">
-    <router-outlet></router-outlet>
+    <div class="apartment-details">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>

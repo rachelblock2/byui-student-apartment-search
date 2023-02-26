@@ -8,6 +8,7 @@ import { User } from '../account/account.model';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { ApartmentService } from '../apartments/apartment.service';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,8 @@ export class AccountService {
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
-    private router: Router
+    private router: Router,
+    private apartmentService: ApartmentService
   ) {}
 
   signup(user: User) {
@@ -72,6 +74,7 @@ export class AccountService {
       .subscribe((responseData) => {
         console.log(responseData);
         this.cookieService.set('jwt_token', responseData.accessToken);
+        // this.cookieService.set('refresh_token', responseData.refreshToken);
         this.user = responseData.user;
         this.fireChangedTokenCookie(true);
       });
@@ -119,6 +122,38 @@ export class AccountService {
         this.cookieService.delete('jwt_token');
         console.log('token is deleted');
         this.fireChangedTokenCookie(false);
+      });
+  }
+
+  addFavorite(apartment) {
+    let accessToken = this.getTokenCookie();
+    console.log(accessToken);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    });
+
+    this.http
+      .post<{message: string}>('http://localhost:3000/auth/addFavorite', {apartment: apartment, id: this.user._id}, { headers: headers })
+      .subscribe((responseData) => {
+        console.log(responseData);
+        // this.apartmentService.getApartment(responseData.user.favorites[Array.length - 1]);
+      });
+  }
+
+  deleteFavorite(apartment) {
+    let accessToken = this.getTokenCookie();
+    console.log(accessToken);
+    console.log(apartment);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    });
+
+    this.http
+      .post<{message: string}>('http://localhost:3000/auth/deleteFavorite', {apartment: apartment, id: this.user._id}, { headers: headers })
+      .subscribe((responseData) => {
+        console.log(responseData);
       });
   }
 }

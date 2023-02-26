@@ -14,7 +14,7 @@ export class ApartmentListComponent implements OnInit {
   apartments: Apartment[] = [];
   subscription: Subscription;
 
-  constructor(private route: ActivatedRoute, private apartmentService: ApartmentService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private apartmentService: ApartmentService) { }
 
   ngOnInit(): void {
     // if (this.route.snapshot.queryParamMap.get('apartments') != "") {
@@ -28,6 +28,10 @@ export class ApartmentListComponent implements OnInit {
       )
       this.apartmentService.getApartments();
     // }
+  }
+
+  closeDetails() {
+    this.apartmentService.closeDetails();
   }
 
   // ngOnDestroy() {

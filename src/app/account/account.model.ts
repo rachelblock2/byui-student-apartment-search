@@ -1,3 +1,5 @@
+import { Apartment } from "../apartments/apartment.model";
+
 export class User {
     constructor(
     public _id: string,
@@ -5,5 +7,6 @@ export class User {
     public lname: string,
     public email: string,
     public password: string,
+    public favorites: Apartment[],
     public salt: string) {}
 }

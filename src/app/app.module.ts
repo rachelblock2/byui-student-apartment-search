@@ -29,7 +29,7 @@ import { AccountInfoComponent } from './account/account-info/account-info.compon
     ApartmentCarouselComponent,
     LoginComponent,
     AccountSignupComponent,
-    AccountInfoComponent
+    AccountInfoComponent,
   ],
   imports: [
     BrowserModule,

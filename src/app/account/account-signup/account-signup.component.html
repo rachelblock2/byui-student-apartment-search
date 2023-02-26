@@ -1,78 +1,74 @@
 <div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <form [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm)">
-        <label>First Name:</label>
-        <div>
-          <input
-            type="text"
-            id="fname"
-            formControlName="fname"
-            class="form-control"
-          />
-          <span
-            *ngIf="
-              !signupForm.get('fname').valid &&
-              signupForm.get('fname').touched
-            "
-            >First name is required! Please enter your first name.</span
-          >
-        </div>
-        
-        <label>Last Name:</label>
-        <div>
-          <input
-            type="text"
-            id="lname"
-            formControlName="lname"
-            class="form-control"
-          />
-          <span
-            *ngIf="
-              !signupForm.get('lname').valid &&
-              signupForm.get('lname').touched
-            "
-            >Last name is required! Please enter your last name.</span
-          >
-        </div>
-
-        <label>Email:</label>
-        <div>
-          <input
-            type="text"
-            id="email"
-            formControlName="email"
-            class="form-control"
-          />
-          <span
-            *ngIf="
-              !signupForm.get('email').valid &&
-              signupForm.get('email').touched &&
-              signupForm.get('email').errors?.email
-            "
-            >Email is required! Please enter a valid email.</span
-          >
-        </div>
-
-        <label>Password:</label>
-        <div>
-          <input
-            type="text"
-            id="password"
-            formControlName="password"
-            class="form-control"
-          />
-          <span
-            *ngIf="
-              !signupForm.get('password').valid &&
-              signupForm.get('password').touched
-            "
-            >Password is required! Please enter at least 7 characters.</span
-          >
-        </div>
-        <button type="submit" [disabled]="!signupForm.valid" value="Submit">Submit</button>
-        <!-- <button class="btn btn-danger" type="button" (click)="onCancel()">Cancel</button> -->
-      </form>
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm)">
+    <label>First Name:</label>
+    <div>
+      <input
+        type="text"
+        id="fname"
+        formControlName="fname"
+        class="form-control"
+      />
+      <span
+        *ngIf="
+          !signupForm.get('fname').valid && signupForm.get('fname').touched
+        "
+        >First name is required! Please enter your first name.</span
+      >
     </div>
-  </div>
+
+    <label>Last Name:</label>
+    <div>
+      <input
+        type="text"
+        id="lname"
+        formControlName="lname"
+        class="form-control"
+      />
+      <span
+        *ngIf="
+          !signupForm.get('lname').valid && signupForm.get('lname').touched
+        "
+        >Last name is required! Please enter your last name.</span
+      >
+    </div>
+
+    <label>Email:</label>
+    <div>
+      <input
+        type="text"
+        id="email"
+        formControlName="email"
+        class="form-control"
+      />
+      <span
+        *ngIf="
+          !signupForm.get('email').valid &&
+          signupForm.get('email').touched &&
+          signupForm.get('email').errors?.email
+        "
+        >Email is required! Please enter a valid email.</span
+      >
+    </div>
+
+    <label>Password:</label>
+    <div>
+      <input
+        type="text"
+        id="password"
+        formControlName="password"
+        class="form-control"
+      />
+      <span
+        *ngIf="
+          !signupForm.get('password').valid &&
+          signupForm.get('password').touched
+        "
+        >Password is required! Please enter at least 7 characters.</span
+      >
+    </div>
+    <button type="submit" [disabled]="!signupForm.valid" value="Submit">
+      Submit
+    </button>
+    <!-- <button class="btn btn-danger" type="button" (click)="onCancel()">Cancel</button> -->
+  </form>
 </div>

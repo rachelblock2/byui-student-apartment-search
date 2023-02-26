@@ -27,7 +27,7 @@ export class AccountSignupComponent implements OnInit {
 
   onSubmit({ value }: { value: User }) {
     if (this.signupForm.valid) {
-      let newUser = new User('', value.fname, value.lname, value.email, value.password, '');
+      let newUser = new User('', value.fname, value.lname, value.email, value.password, null, '');
       this.accountService.signup(newUser);
     }
   }

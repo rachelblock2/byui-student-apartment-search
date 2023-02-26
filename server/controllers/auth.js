@@ -5,12 +5,15 @@ const {
   validationResult
 } = require('express-validator');
 const User = require('../models/user');
+const Apartment = require('../models/apartment');
 // const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const {
   ObjectId
 } = require('mongodb');
+
+// let refreshTokens = [];
 
 exports.login = (req, res, next) => {
   const errors = validationResult(req);
@@ -44,11 +47,16 @@ exports.login = (req, res, next) => {
 
           const accessToken = jwt.sign({
             user
-          }, process.env.ACCESS_TOKEN_SECRET)
-          console.log(accessToken);
+          }, process.env.ACCESS_TOKEN_SECRET);
+          // const refreshToken = jwt.sign({
+          //   user
+          // }, process.env.REFRESH_TOKEN_SECRET);
+          // refreshTokens.push(refreshToken);
+          // console.log(refreshTokens);
           res.status(201).send({
             message: "User Logged In",
             accessToken: accessToken,
+            // refreshToken: refreshToken,
             user: user
           })
         } else {
@@ -57,13 +65,26 @@ exports.login = (req, res, next) => {
           });
         }
       }
-      // else {
-      //   res.status(400).send({
-      //     message: "Wrong Password"
-      //   });
-
     })
 }
+
+// function generateAccessToken() {
+//   const accessToken = jwt.sign({
+//     user
+//   }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15s' });
+//   return accessToken;
+// }
+
+// exports.token = (req, res, next) => {
+//   const refreshToken = req.body.token;
+//   if (refreshToken === null) return res.sendStatus(401);
+//   if (refreshTokens.includes(refreshToken)) return res.sendStatus(403);
+//   jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+//     if (err) return res.sendStatus(401)
+//     const accessToken = generateAccessToken();
+//     res.json({ accessToken: accessToken });
+//   })
+// }
 
 exports.logout = (req, res, next) => {
   const authHeader = req.headers['authorization'].split(' ')[1];
@@ -172,7 +193,9 @@ exports.getUser = (req, res, next) => {
   // .then((user) => {
   User.findOne({
     _id: userId
-  }).then((user) => {
+  })
+  .populate('favorites')
+  .then((user) => {
     if (user === null) {
       res.status(422).send({
         message: "User not found."
@@ -181,6 +204,76 @@ exports.getUser = (req, res, next) => {
       res.status(201).send({
         message: "User Found",
         user: user
+      })
+    }
+  })
+}
+
+exports.addFavorite = (req, res, next) => {
+  const userId = req.body.id;
+  const apartmentId = req.body.apartment._id;
+  User.findOne({
+    _id: userId
+  })
+  .populate("favorites")
+  .then((user) => {
+    console.log(user);
+    if (user === null) {
+      res.status(422).send({
+        message: "User not found."
+      });
+    } else {
+      Apartment.findOne({
+        _id: apartmentId
+      }).then((apartment) => {
+        console.log(user);
+        console.log(user.favorites);
+        console.log(apartment);
+        // let apartmentId = apartment._id;
+        // console.log(JSON.parse(apartment));
+        user.favorites.push(apartment);
+        console.log(user.favorites);
+        user.save();
+        res.status(201).send({
+          message: "Apartment added to favorites!",
+          apartment: apartment
+        })
+      })
+    }
+  })
+}
+
+exports.deleteFavorite = (req, res, next) => {
+  const userId = req.body.id;
+  const apartmentId = req.body.apartment._id;
+  User.findOne({
+    _id: userId
+  })
+  .populate("favorites")
+  .then((user) => {
+    console.log(user);
+    if (user === null) {
+      res.status(422).send({
+        message: "User not found."
+      });
+    } else {
+      Apartment.findOne({
+        _id: apartmentId
+      }).then((apartment) => {
+        console.log(user);
+        console.log(user.favorites);
+        console.log(apartment);
+        // let apartmentId = apartment._id;
+        // console.log(JSON.parse(apartment));
+        let apartmentIndex = user.favorites.indexOf(apartment._id);
+        console.log(apartmentIndex);
+        user.favorites.splice(apartmentIndex, 1)
+        console.log(user.favorites);
+        user.save();
+        res.status(201).send({
+          message: "Apartment removed to favorites!",
+          apartment: apartment
+        })
       })
     }
   })

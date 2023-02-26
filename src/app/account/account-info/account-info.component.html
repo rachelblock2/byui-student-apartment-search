@@ -1,4 +1,7 @@
 <p>Name: {{ (user.fname.charAt(0).toUpperCase() + user.fname.slice(1)) }} {{ (user.lname.charAt(0).toUpperCase() + user.lname.slice(1)) }}</p>
-<!-- str.charAt(0).toUpperCase() + str.slice(1); -->
 <p>Email: {{ user.email }}</p>
+<h1>Favorited Apartments:</h1>
+<ul *ngFor="let favorite of user.favorites">
+    <li>{{ favorite.name }}<button (click)="deleteFavorite(favorite)">X</button></li>
+</ul>
 <a class="logoutBtn" (click)="logoutUser()">Logout</a>
