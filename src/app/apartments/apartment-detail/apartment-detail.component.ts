@@ -11,7 +11,7 @@ declare var $: any;
   styleUrls: ['./apartment-detail.component.css'],
 })
 export class ApartmentDetailComponent implements OnInit, AfterViewInit {
-  apartment: Apartment = new Apartment('', '', '', '', '', '', [''], [''], 0);
+  apartment: Apartment = new Apartment('', '', '', [''], '', '', '', 0, [''], [''], [0]);
   images: string[];
   id: string;
   walkTimeToSchool: string;
@@ -25,8 +25,6 @@ export class ApartmentDetailComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    document.querySelector('.apartment-modal').classList.add('background');
-    document.querySelector('.apartment-details').classList.add('show');
     this.route.params.subscribe((params: Params) => {
       this.id = params['id'];
       this.apartmentService.getApartment(this.id).subscribe((apartmentData) => {
@@ -42,6 +40,9 @@ export class ApartmentDetailComponent implements OnInit, AfterViewInit {
           this.driveTimeToSchool = locationData.rows[0].elements[0].duration.text;
           console.log(this.driveTimeToSchool);
         })
+        console.log(this.apartment.price);
+        this.apartment.price.sort((a, b) => (a > b) ? 1 :((b > a) ? -1 : 0));
+        console.log(this.apartment.price);
       });
     });
   }

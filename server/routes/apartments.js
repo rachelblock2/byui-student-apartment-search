@@ -18,6 +18,8 @@ router.get('/distance/driving/', apartmentController.getDrivingTime)
 // Gets an individual apartment's details
 router.get('/details/:id', apartmentController.getApartment);
 
+router.post('/suggestApartment', isAuth, apartmentController.suggestApartment);
+
 // router.post('/', (req, res, next) => {
 //   Apartment.findOne({
 //       "id": req.params.id

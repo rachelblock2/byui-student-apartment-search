@@ -2,7 +2,7 @@
   display: grid;
   grid-template-rows: 0px 90px 320px 4% 9% 0px;
   row-gap: 1rem;
-  background-color: #c7c7c7;
+  background-color: #a7a7a7;
   border-radius: 0.4rem;
   margin: 0 0.5rem 1.3rem;
 }
@@ -30,9 +30,9 @@ img {
 .apt-title-holder {
   margin: 0 0.8rem 0 -1.2rem;
   display: grid;
-  box-shadow: -5px 8px 8px 0px #284839;
+  box-shadow: -5px 8px 8px 0px #1c2a2f;
   line-height: 1.5rem;
-  background-color: #225b40;
+  background-color: #334e58;
   color: white;
 }
 
@@ -41,9 +41,13 @@ img {
   padding: 0.3rem 1.4rem;
   align-self: center;
   font-size: 1.1rem;
+  font-weight: 600;
+  font-family: 'Raleway', sans-serif;
 }
 
 .apartment-info h3 {
+  font-weight: 500;
+  font-family: 'Raleway', sans-serif;
   font-size: 1rem;
   margin: 0 2rem;
 }
@@ -55,11 +59,19 @@ img {
   font-size: 0.8rem;
   text-align: center;
   text-decoration: none;
-  border: transparent;
-  background-color: #225b40;
+  border: 3px solid #a7a7a7;
+  background-color: #334e58;
   color: white;
   border-radius: 2rem;
   margin: 0 2rem 1rem;
+}
+
+.apartment-info a:hover {
+  font-weight: bold;
+  border: 3px solid #334e58;
+  background-color: white;
+  color: #334e58;
+  transition: 0.5s ease;
 }
 
 @media only screen and (min-width: 37.5em) {
@@ -68,7 +80,7 @@ img {
   }
 
   .apt-title-holder {
-    margin: 0 0.8rem 0 -0.5rem;
+    margin: 0 0.8rem 0 -0.35rem;
   }
 
   .apt-title-holder h2 {
@@ -78,12 +90,13 @@ img {
   .apartment-info a {
     width: 52%;
     margin: 0 1.5rem 1rem;
+    font-family: 'Raleway', sans-serif;
   }
 }
 
 @media only screen and (min-width: 60em) {
   .apartment-info {
-    grid-template-rows: 0px 90px 150px 9% 9% 0px;
+    grid-template-rows: 0px 90px 240px 6% 9% 0px;
     row-gap: 1rem;
   }
 
@@ -100,6 +113,7 @@ img {
   }
 
   .apartment-info h3 {
+    overflow-wrap: anywhere;
     font-size: 1.17rem;
     margin: 0 0.7rem;
   }

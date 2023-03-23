@@ -9,7 +9,7 @@ import { AccountService } from '../account.service';
 @Component({
   selector: 'app-account-info',
   templateUrl: './account-info.component.html',
-  styleUrls: ['./account-info.component.css']
+  styleUrls: ['./account-info.component.css'],
 })
 export class AccountInfoComponent implements OnInit {
   user: User;
@@ -17,35 +17,42 @@ export class AccountInfoComponent implements OnInit {
   // favorites: [{}];
   subscription: Subscription;
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private accountService: AccountService,
-    private apartmentService: ApartmentService) { }
+    private apartmentService: ApartmentService
+  ) {}
 
   ngOnInit(): void {
-    console.log('hey');
-    this.accountService.getUser();
-    this.subscription = this.accountService.userInfoEvent.subscribe((user: User) => {
-      this.user = user;
-      // this.favorites = this.user.favorites;
-      console.log(this.user);
-      console.log(this.user.favorites[0].address);
-    });
-      // this.subscription = this.apartmentService.apartmentListChangedEvent.subscribe(
-      //   (apartments: Apartment[]) => {
-      //     this.apartments = apartments;
-      //   }
-      // )
-      // this.apartmentService.getApartments();
+    let token = this.accountService.getTokenCookie();
+    if (!token) {
+      this.router.navigate(['/login']);
+    } else {
+      this.accountService.getUser();
+      this.subscription = this.accountService.userInfoEvent.subscribe(
+        (user: User) => {
+          this.user = user;
+          // this.favorites = this.user.favorites;
+          console.log(this.user);
+          console.log(this.user.favorites[0].address);
+        }
+      );
+    }
+    // this.subscription = this.apartmentService.apartmentListChangedEvent.subscribe(
+    //   (apartments: Apartment[]) => {
+    //     this.apartments = apartments;
+    //   }
+    // )
+    // this.apartmentService.getApartments();
   }
 
   deleteFavorite(favorite) {
     this.accountService.deleteFavorite(favorite);
-    this.router.navigate(["/my-account"]);
+    this.router.navigate(['/my-account']);
   }
 
   logoutUser() {
     this.accountService.logout();
-    this.router.navigate(["/apartments"]);
+    this.router.navigate(['/apartments']);
   }
-
 }

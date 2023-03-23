@@ -1,4 +1,59 @@
 /* Styles for all sizes and small screen specific styles */
+.container {
+  background-image: url("/assets/apt-search-background.webp");
+  background-position: center;
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+form {
+  font-family: "Raleway", sans-serif;
+  margin: auto;
+  color: white;
+  max-width: 600px;
+}
+
+h1 {
+  margin: 0 auto;
+  font-family: "Gloock", serif;
+  font-size: 1.9rem;
+  line-height: 2.3rem;
+  max-width: 37rem;
+  color: white;
+  padding: 1rem 0;
+}
+
+.mat-slider-horizontal {
+  min-width: 190px;
+}
+
+::ng-deep .mat-accent .mat-slider-track-fill {
+  background-color: #a3a19f;
+}
+
+::ng-deep
+  .mat-slider-min-value:not(.mat-slider-thumb-label-showing)
+  .mat-slider-thumb {
+  border-color: rgba(163, 161, 159, 0.5);
+}
+
+::ng-deep .mat-slider-track-background {
+  background-color: rgba(163, 161, 159, 0.5);
+}
+
+::ng-deep .mat-accent .mat-slider-track-fill {
+  background-color: #a3a19f;
+}
+
+::ng-deep .mat-accent .mat-slider-thumb {
+  background-color: #a3a19f;
+}
+
+::ng-deep .mat-accent .mat-slider-focus-ring {
+  background-color: #a3a19f;
+}
+
 .checkboxes {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -10,26 +65,122 @@
   font-size: 0.7rem;
 }
 
+fieldset {
+  margin-bottom: 1rem;
+  border: 3px solid white;
+  border-radius: 1rem;
+  background-color: rgba(51, 78, 88, 0.9);
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.aptSearchDetails {
+  grid-template-columns: 1fr;
+}
+
+label {
+  display: block;
+}
+
+.amenitiesLabel {
+  margin-bottom: 0.7rem;
+}
+
+legend {
+  color: white;
+  float: none;
+  width: auto;
+  margin: 0;
+  padding: 0.5rem;
+}
+
+.mat-slider {
+  margin: -0.6rem 0;
+  padding: 1.5rem 0;
+}
+
+.aptGenderOptions {
+  display: flex;
+  margin: 0.5rem 0 0;
+  width: 50%;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+input[type="checkbox"] {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  border: 1px solid white;
+  border-radius: 0.15rem;
+  margin-right: 0.2rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  appearance: none !important;
+}
+
+input[type="checkbox"]:checked {
+  border: 6px solid white;
+}
+
+p {
+  margin: 0;
+  display: inline;
+}
+
+span {
+  margin-bottom: 1.5rem;
+  display: block;
+  font-weight: 600;
+}
+
+input[type="submit"] {
+  display: block;
+  padding: 0.7rem;
+  width: 34%;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid #18402e;
+  color: #225b40;
+  border-radius: 2rem;
+  margin: 1.1rem 0 0;
+}
+
+input[type="submit"]:hover {
+  background-color: #18402e;
+  color: white;
+  border: 2px solid white;
+  transition: 0.3s ease;
+}
+
 /* Styles for large screens */
 @media screen and (min-width: 32em) {
-    .checkboxes {
-        grid-template-columns: 1fr 1fr 1fr;
-        height: calc(100vh - 70px);
-    }
+  .aptSearchDetails {
+    grid-template-columns: 1fr 1fr;
+  }
 
-    .checkboxes div {
-        font-size: 0.8rem;
-    }
+  .checkboxes {
+    grid-template-columns: 1fr 1fr 1fr;
+    height: calc(100vh - 70px);
+  }
+
+  .checkboxes div {
+    font-size: 0.8rem;
+  }
 }
 
 /* Styles for large screens */
 @media screen and (min-width: 62em) {
-    .checkboxes {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        height: calc(100vh - 110px);
-    }
-    .checkboxes div {
-        font-size: 0.9rem;
-        padding: 0.2rem 1rem;
-    }
+  .checkboxes {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    height: calc(100vh - 110px);
+  }
+  .checkboxes div {
+    font-size: 0.9rem;
+    padding: 0.2rem 1rem;
+  }
 }

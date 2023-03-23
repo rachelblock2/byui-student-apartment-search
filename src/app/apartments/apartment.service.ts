@@ -43,7 +43,7 @@ export class ApartmentService {
     price;
     walkTimeToCollege;
     driveTimeToCollege;
-    reviewStars;
+    rating;
     aptGenderOptions;
     amenities;
   }) {
@@ -55,7 +55,7 @@ export class ApartmentService {
             price: apartmentFilterData.price,
             walkTime: apartmentFilterData.walkTimeToCollege,
             driveTime: apartmentFilterData.driveTimeToCollege,
-            reviewStars: apartmentFilterData.reviewStars,
+            rating: apartmentFilterData.rating,
             aptGenderOptions: apartmentFilterData.aptGenderOptions,
             amenities: apartmentFilterData.amenities,
           },
@@ -178,7 +178,5 @@ export class ApartmentService {
 
   closeDetails() {
     this.router.navigate(["apartments"]);
-    document.querySelector('.apartment-modal').classList.remove('background');
-    document.querySelector('.apartment-details').classList.remove('show');
   }
 }

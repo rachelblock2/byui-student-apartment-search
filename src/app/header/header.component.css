@@ -1,24 +1,95 @@
+nav {
+    height: 9%;
+    background-color: #334E58;
+}
+
 ul {
+    position: absolute;
+    top: 0;
+    right: 0;
     padding: 0;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-around;
-    align-items: center;
+    align-items: flex-end;
     background-color: #334E58;
     margin: 0;
 }
 
-ul li {
+/* ul.navigation {
+    transition: 0.3s ease;
+} */
+
+ul.navigation li {
+    display: none;
+    cursor: pointer;
     list-style-type: none;
-    padding: 1rem;
+    font-family: 'Raleway', sans-serif;
 }
 
-ul li:nth-child(3) {
+ul.navigation li:first-child {
+    font-size: 1.4rem;
+    display: block;
+    cursor: pointer;
+    padding: 1rem 0.5rem;
+}
+
+ul.navigation li:first-child:hover {
+    font-size: 1.9rem;
+    transition: 0.3s ease;
+}
+
+ul.navigation li:nth-child(4) {
     margin-left: auto;
-    margin-right: 1rem
+    margin-right: 1rem;
 }
 
 ul li a {
+    padding: 1rem;
     text-decoration: none;
     color: white;
+}
+
+ul.responsive {
+    display: flex;
+    flex-direction: column;
+}
+
+ul.responsive li {
+    display: block;
+    padding: 1rem;
+}
+
+ul.responsive li a {
+    padding: 1rem;
+}
+
+ul.responsive li:first-child a:hover {
+    text-decoration: none;
+}
+
+ul.responsive li a:hover {
+    text-decoration: underline;
+    transition: 0.2s ease;
+}
+
+
+ul.responsive li:nth-child(4) {
+    margin: 0;
+}
+
+@media only screen and (min-width:37.5rem) {
+    ul {
+        position: static;
+        flex-direction: row;
+        padding: 1rem;
+    }
+
+    ul.navigation li {
+        display: block;
+    }
+    
+    ul.navigation li:first-child {
+        display: none;
+    }
 }

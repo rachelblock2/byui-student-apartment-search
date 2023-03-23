@@ -1,12 +1,18 @@
 <nav>
-  <ul>
+  <ul class="navigation">
+    <li routerLinkActive="active">
+      <a class="mobile-btn" toggleHeader>&#9776;</a>
+    </li>
     <li routerLinkActive="active">
       <a routerLink="apartments">Single Apartments</a>
     </li>
     <li routerLinkActive="active">
       <a routerLink="/apartment-search">Search Apartments</a>
     </li>
-    <li><a *ngIf="jwtTokenCheck === false" routerLink="/login">Login</a></li>
-    <li><a *ngIf="jwtTokenCheck === true" routerLink="/my-account">My Account</a></li>
+    <li *ngIf="jwtTokenCheck === true" routerLinkActive="active">
+      <a routerLink="/apartment-suggestion">Apartment Suggestion</a>
+    </li>
+    <li *ngIf="jwtTokenCheck === false"><a routerLink="/login">Login</a></li>
+    <li *ngIf="jwtTokenCheck === true"><a routerLink="/my-account">My Account</a></li>
   </ul>
 </nav>

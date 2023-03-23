@@ -80,6 +80,10 @@ export class AccountService {
       });
   }
 
+  refreshLogin() {
+    
+  }
+
   getUser() {
     let accessToken = this.getTokenCookie();
     let id = this.user._id;
@@ -152,6 +156,22 @@ export class AccountService {
 
     this.http
       .post<{message: string}>('http://localhost:3000/auth/deleteFavorite', {apartment: apartment, id: this.user._id}, { headers: headers })
+      .subscribe((responseData) => {
+        console.log(responseData);
+      });
+  }
+
+  suggestApartment(aptName) {
+    let accessToken = this.getTokenCookie();
+    console.log(accessToken);
+    console.log(aptName);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    });
+
+    this.http
+      .post<{message: string, aptName: string}>('http://localhost:3000/apartments/suggestApartment', {aptName: aptName, id: this.user._id}, { headers: headers })
       .subscribe((responseData) => {
         console.log(responseData);
       });

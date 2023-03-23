@@ -1,3 +1,7 @@
+.account-info {
+  display: grid;
+}
+
 .logoutBtn {
   display: block;
   cursor: pointer;

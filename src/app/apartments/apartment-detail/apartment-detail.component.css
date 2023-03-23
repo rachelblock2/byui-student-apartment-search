@@ -6,10 +6,16 @@
   border-radius: 0.4rem;
   margin: 1rem auto;
   box-shadow: 0px 7px 11px 1px #284839;
+  height: 98%;
+  position: fixed;
+  top: -2%;
+  left: 15%;
+  right: 15%;
+  overflow-y: scroll;
 }
 
 .apt-details h1 {
-  margin: 1rem 4rem 0.3rem;
+  margin: 1rem 2rem 0.3rem;
   font-size: 0.9rem;
   line-height: 1.3rem;
   font-weight: bold;
@@ -17,11 +23,11 @@
 
 .apt-details p,
 .apt-details a {
-  margin: 0.3rem 4rem 0;
+  margin: 0.3rem 2rem 0;
 }
 
 .apt-details > a {
-    color: var(--bs-body-color);
+  color: var(--bs-body-color);
 }
 
 .apt-details button a {
@@ -35,7 +41,7 @@
   background-color: #225b40;
   color: white;
   border-radius: 2rem;
-  margin: 0.8rem 3.5rem 0.8rem;
+  margin: 0.8rem 1.6rem 0.5rem;
 }
 
 button {
@@ -53,7 +59,33 @@ button {
 }
 
 @media only screen and (min-width: 37.5rem) {
-  .apt-details h1, .apt-details p, .apt-details a, .apt-details button {
+  .apt-details {
+    left: 26%;
+    right: 26%;
+  }
+
+  .apt-details button a {
+    width: 60%;
+  }
+
+  .apt-details h1,
+  .apt-details p,
+  .apt-details a,
+  .apt-details button a {
     margin-left: 1rem;
+  }
+}
+
+@media only screen and (min-width: 60rem) {
+  .apt-details {
+    left: 33%;
+    right: 33%;
+  }
+
+  .apt-details h1,
+  .apt-details p,
+  .apt-details a,
+  .apt-details button a {
+    margin-left: 1.8rem;
   }
 }

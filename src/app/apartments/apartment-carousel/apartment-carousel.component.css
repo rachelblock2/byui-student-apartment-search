@@ -6,7 +6,7 @@
 }
 
 .carousel-inner {
-    width: 100%;
+    width: 475px;
     height: 300px;
 }
 
@@ -36,10 +36,10 @@
     background-color: rgba(123, 123, 123, 0.6);
     transition: 0.3s ease;
 }
-/* 
+
 @media only screen and (min-width: 37.5rem) {
     .carousel-inner {
-        width: 100%;
+        width: 430px;
         height: 300px;
     }
-} */
+}

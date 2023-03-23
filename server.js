@@ -6,6 +6,10 @@ let http = require('http');
 let mongoose = require('mongoose');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
+const cronConfig = require("./server/controllers/config");
+const scheduler = require("./server/controllers/scheduler");
+
+scheduler.initCrons(cronConfig);
 
 // import the routing file to handle the default (index) route
 let index = require('./server/routes/app');
@@ -13,6 +17,8 @@ let index = require('./server/routes/app');
 const apartmentRoutes = require('./server/routes/apartments');
 
 const authRoutes = require('./server/routes/auth');
+
+const adminRoutes = require('./server/routes/admin');
 
 let app = express(); // create an instance of express
 
@@ -47,6 +53,7 @@ app.use(express.static(path.join(__dirname, 'dist/byui-student-apartment-search'
 app.use('/', index);
 app.use('/apartments', apartmentRoutes);
 app.use('/auth', authRoutes);
+app.use('/admin', adminRoutes);
 
 // Tell express to map all other non-defined routes back to the index page
 app.get('*', (req, res) => {

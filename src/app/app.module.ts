@@ -16,6 +16,11 @@ import { ApartmentCarouselComponent } from './apartments/apartment-carousel/apar
 import { LoginComponent } from './account/account-login/login.component';
 import { AccountSignupComponent } from './account/account-signup/account-signup.component';
 import { AccountInfoComponent } from './account/account-info/account-info.component';
+import { ApartmentSuggestionComponent } from './apartments/apartment-suggestion/apartment-suggestion.component';
+import { ErrorComponent } from './error/error.component';
+import { AddModalDirective } from './apartments/add-modal.directive';
+import { RemoveModalDirective } from './apartments/remove-modal.directive';
+import { ToggleHeaderDirective } from './header/toggle-header.directive';
 
 @NgModule({
   declarations: [
@@ -30,6 +35,11 @@ import { AccountInfoComponent } from './account/account-info/account-info.compon
     LoginComponent,
     AccountSignupComponent,
     AccountInfoComponent,
+    ApartmentSuggestionComponent,
+    ErrorComponent,
+    AddModalDirective,
+    RemoveModalDirective,
+    ToggleHeaderDirective,
   ],
   imports: [
     BrowserModule,

@@ -4,11 +4,11 @@
     <h2>{{ apartment.name }}</h2>
   </div>
   <div class="apt-img-holder">
-    <img [src]="apartment.images[0]" alt="{{ apartment.images[0] }}" />
+   <img [src]="apartment.images[0]" alt="{{ apartment.name }}" />
   </div>
-  <h3>Semester Price: ${{ apartment.price }}</h3>
+  <h3>Semester Price: ${{ apartment.price[0] }} - ${{ apartment.price[apartment.price.length -1] }}</h3>
   <div>
-    <a [routerLink]="['details', apartment._id]">View Details</a>
+    <a addModal [routerLink]="['details', apartment._id]">View Details</a>
   </div>
   <p id="spacer"></p>
 </div>

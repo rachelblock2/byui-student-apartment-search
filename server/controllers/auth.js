@@ -271,7 +271,7 @@ exports.deleteFavorite = (req, res, next) => {
         console.log(user.favorites);
         user.save();
         res.status(201).send({
-          message: "Apartment removed to favorites!",
+          message: "Apartment removed from favorites!",
           apartment: apartment
         })
       })

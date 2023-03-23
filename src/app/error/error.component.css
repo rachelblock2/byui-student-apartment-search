@@ -1,0 +1,49 @@
+h1 {
+    margin: 1rem 2rem;
+    font-family: "Raleway", sans-serif;
+    font-size: 1.9rem;
+    line-height: 2.3rem;
+    max-width: 37rem;
+    /* color: white; */
+    padding: 1rem 0;
+}
+
+a {
+    display: block;
+    padding: 0.7rem;
+    width: 60%;
+    font-size: 0.8rem;
+    text-align: center;
+    text-decoration: none;
+    border: 3px solid #a7a7a7;
+    background-color: #334e58;
+    color: white;
+    border-radius: 2rem;
+    margin: 0 2rem 1rem;
+  }
+  
+a:hover {
+    font-weight: bold;
+    border: 3px solid #334e58;
+    background-color: white;
+    color: #334e58;
+    transition: 0.5s ease;
+  }
+
+/* a {
+    text-decoration: none;
+    font-family: "Raleway", sans-serif;
+    font-size: 1.2rem;
+} */
+
+@media only screen and (min-width: 37.5rem) {
+    a {
+        width: 20rem;
+    }
+}
+
+@media only screen and (min-width: 37.5rem) {
+    a {
+        width: 16rem;
+    }
+}

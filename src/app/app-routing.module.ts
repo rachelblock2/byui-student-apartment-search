@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, Router } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from  '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ApartmentsComponent } from './apartments/apartments.component';
 // import { ApartmentEditComponent } from './apartments/apartment-edit/apartment-edit.component';
 import { ApartmentDetailComponent } from './apartments/apartment-detail/apartment-detail.component';
@@ -11,16 +11,32 @@ import { ApartmentSearchComponent } from './apartments/apartment-search/apartmen
 import { LoginComponent } from './account/account-login/login.component';
 import { AccountSignupComponent } from './account/account-signup/account-signup.component';
 import { AccountInfoComponent } from './account/account-info/account-info.component';
+import { ApartmentSuggestionComponent } from './apartments/apartment-suggestion/apartment-suggestion.component';
+import { ErrorComponent } from './error/error.component';
+import { AccessGuard } from './access-guard.guard';
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/apartments', pathMatch: 'full'},
-  { path: 'apartments', component: ApartmentListComponent, children: [
-    { path: 'details/:id', component: ApartmentDetailComponent}
-  ]},
-  { path: 'apartment-search', component: ApartmentSearchComponent},
-  { path: 'login', component: LoginComponent},
-  { path: 'my-account', component: AccountInfoComponent},
-  { path: 'signup', component: AccountSignupComponent}
+  {
+    path: 'apartments',
+    component: ApartmentListComponent,
+    children: [{ path: 'details/:id', component: ApartmentDetailComponent }],
+  },
+  { path: 'apartment-search', component: ApartmentSearchComponent },
+  { path: 'login', component: LoginComponent },
+  // { path: 'my-account', canActivate: component: AccountInfoComponent, children: [
+  {
+    path: 'my-account',
+    component: AccountInfoComponent,
+    data: { requiresLogin: true },
+    canActivate: [AccessGuard],
+    children: [
+      { path: 'apartment-details/:id', component: ApartmentDetailComponent },
+    ],
+  },
+  { path: 'apartment-suggestion', component: ApartmentSuggestionComponent },
+  { path: 'signup', component: AccountSignupComponent },
+  { path: '', redirectTo: '/apartments', pathMatch: 'full' },
+  { path: '**', component: ErrorComponent },
 ];
 
 @NgModule({
@@ -28,8 +44,8 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
   ],
-  exports: [RouterModule] 
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

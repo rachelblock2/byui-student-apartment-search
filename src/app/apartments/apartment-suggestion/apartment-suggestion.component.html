@@ -1,0 +1,32 @@
+<div class="container">
+  <h1>Don't see a new apartment in the area? Submit a suggestion here!</h1>
+  <form [formGroup]="suggestionForm" (ngSubmit)="onSubmit(suggestionForm)">
+    <label>Apartment Name:</label>
+    <div>
+      <input
+        type="text"
+        id="aptName"
+        formControlName="aptName"
+        class="form-control"
+      />
+      <span
+        *ngIf="
+          !suggestionForm.get('aptName').valid &&
+          suggestionForm.get('aptName').touched
+        "
+        >Apartment name is required!</span
+      >
+    </div>
+    <button
+      type="submit"
+      value="Submit"
+      ng-disabled="suggestionForm.get('aptName').touched && !suggestionForm.get('aptName').valid || suggestionForm.get('aptName').dirty && !suggestionForm.get('aptName').valid"
+    >
+      Send Suggestion
+    </button>
+    <span
+      *ngIf="message != ''"
+      >{{ message }}</span
+    >
+  </form>
+</div>
