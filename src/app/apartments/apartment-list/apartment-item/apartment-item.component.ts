@@ -12,14 +12,7 @@ export class ApartmentItemComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
+    // Sort prices in details from small to large
     this.apartment.price.sort((a, b) => (a > b ? 1 : b > a ? -1 : 0));
-    // this.apartment.images.forEach((image) => {
-    //   const fileReader = new FileReader();
-    //   fileReader.readAsDataURL(image)
-    //   fileReader.onload = () => {
-    //     let base64data = fileReader.result;
-    //     console.log(base64data)
-    //   }
-    // })
   }
 }

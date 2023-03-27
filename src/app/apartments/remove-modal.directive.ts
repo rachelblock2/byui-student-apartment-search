@@ -4,7 +4,6 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
   selector: '[removeModal]',
 })
 export class RemoveModalDirective {
-  // @Input() addModal = '';
   constructor(private el: ElementRef) { }
 
   @HostListener('click') onClick() {

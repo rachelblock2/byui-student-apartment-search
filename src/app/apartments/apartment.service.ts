@@ -13,6 +13,7 @@ export class ApartmentService {
 
   constructor(private router: Router, private http: HttpClient) {}
 
+  // Sorts apartments alphabetically, then fires event on subject
   sortAndSend() {
     this.apartments.sort((a, b) =>
       a.name > b.name ? 1 : b.name > a.name ? -1 : 0
@@ -20,6 +21,7 @@ export class ApartmentService {
     this.apartmentListChangedEvent.next(this.apartments.slice());
   }
 
+  // Gets all apartments
   getApartments() {
     if (this.apartments.length > 0) {
       this.sortAndSend();
@@ -28,7 +30,6 @@ export class ApartmentService {
         .get<{ apartments: Apartment[] }>('http://localhost:3000/apartments/')
         .subscribe(
           (response) => {
-            console.log(response);
             this.apartments = response.apartments;
             this.sortAndSend();
           },
@@ -39,6 +40,7 @@ export class ApartmentService {
     }
   }
 
+  // Gets apartments based on user's queries
   getFilteredApartments(apartmentFilterData: {
     price;
     walkTimeToCollege;
@@ -62,18 +64,14 @@ export class ApartmentService {
         }
       )
       .subscribe((response) => {
-        console.log(response);
         this.apartments = response.apartments;
         this.sortAndSend();
-      });
-    // } else {
-    //   return 'hi';
-    // }
-
-    // make sure _id of new apartment is empty
-    // apartment._id = '';
+      }, (error: any) => {
+        console.log(error.message);
+      })
   }
 
+  // Gets amount of time walking between apartment and college
   getWalkingDistance(apartment: Apartment) {
     let location = encodeURIComponent(apartment.address.trim());
     return this.http.get<any>(
@@ -81,7 +79,8 @@ export class ApartmentService {
       { params: { location: location } }
     );
   }
-
+  
+  // Gets amount of time driving between apartment and college
   getDrivingDistance(apartment: Apartment) {
     let location = encodeURIComponent(apartment.address.trim());
     return this.http.get<any>(
@@ -90,11 +89,20 @@ export class ApartmentService {
     );
   }
 
+  // Gets individual apartment based on id
   getApartment(_id: string) {
-    console.log(_id);
     return this.http.get<{ message: string; apartment: Apartment }>(
       'http://localhost:3000/apartments/details/' + _id
     );
+  }
+  
+  // Closes open modal of apartment details
+  closeDetails() {
+    this.router.navigate(["apartments"]);
+  }
+
+  closeAcctDetails() {
+    this.router.navigate(["my-account"])
   }
 
   addApartment(apartment: Apartment) {
@@ -110,7 +118,7 @@ export class ApartmentService {
     // add to database
     this.http
       .post<{ message: string; apartment: Apartment }>(
-        'http://localhost:3000/apartments/',
+        'http://localhost:3000/admin/addAptId',
         apartment,
         { headers: headers }
       )
@@ -176,7 +184,4 @@ export class ApartmentService {
       });
   }
 
-  closeDetails() {
-    this.router.navigate(["apartments"]);
-  }
 }

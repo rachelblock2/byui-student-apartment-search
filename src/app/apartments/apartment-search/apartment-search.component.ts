@@ -55,11 +55,12 @@ export class ApartmentSearchComponent implements OnInit {
     { name: 'Outdoor Exercise Court', value: 'exerciseCourt' },
     { name: 'Apartment Balcony', value: 'balcony' },
     { name: 'Fire Pit', value: 'firePit' },
-    { name: 'Heated Floors', value: 'heatedFloors' }
+    { name: 'Heated Floors', value: 'heatedFloors' },
   ];
   aptGenderOptions: string[] = ['Women', 'Men'];
 
-  constructor( private router: Router,
+  constructor(
+    private router: Router,
     private apartmentService: ApartmentService,
     private formBuilder: FormBuilder
   ) {}
@@ -76,12 +77,14 @@ export class ApartmentSearchComponent implements OnInit {
   }
 
   onCheckboxAptGenderChange(e) {
+    // Add checked gender to search query
     const aptGenderOptions: FormArray = this.searchForm.get(
       'aptGenderOptions'
     ) as FormArray;
     if (e.target.checked) {
       aptGenderOptions.push(new FormControl(e.target.value));
     } else {
+      // Remove checked amenities to search query
       let i: number = 0;
       aptGenderOptions.controls.forEach((item: FormControl) => {
         if (item.value == e.target.value) {
@@ -94,10 +97,12 @@ export class ApartmentSearchComponent implements OnInit {
   }
 
   onCheckboxAmenitiesChange(e) {
+    // Add checked amenities to search query
     const amenities: FormArray = this.searchForm.get('amenities') as FormArray;
     if (e.target.checked) {
       amenities.push(new FormControl(e.target.value));
     } else {
+      // Remove checked amenities to search query
       let i: number = 0;
       amenities.controls.forEach((item: FormControl) => {
         if (item.value == e.target.value) {
@@ -108,21 +113,14 @@ export class ApartmentSearchComponent implements OnInit {
       });
     }
   }
-  
+
   onSubmit(aptSearchFilterData) {
-    console.log(aptSearchFilterData.value);
+    // Submit user selected values in search query
     this.subscription =
       this.apartmentService.apartmentListChangedEvent.subscribe(
         (apartments: Apartment[]) => {
           this.apartments = apartments;
-          // if (this.apartments.length != 0){
-            console.log(this.apartments);
-            // TODO: how to send the data to the list component, currently data comes through but only as object Object
-            this.router.navigate(['/apartments']);
-          // } else {
-          //   this.router.navigate(['/apartments']);
-            
-          // }
+          this.router.navigate(['/apartments']);
         }
       );
     this.apartmentService.getFilteredApartments(aptSearchFilterData.value);
@@ -130,11 +128,5 @@ export class ApartmentSearchComponent implements OnInit {
 
   // ngOnDestroy() {
   //   this.subscription.unsubscribe();
-  // }
-
-  // onCancel() {
-  //   this.router.navigate(['/apartments']);
-  // }
-
   // }
 }

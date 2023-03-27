@@ -1,19 +1,27 @@
-<div class="account-info">
-  <p>
+<div removeModal class="apartment-modal" (click)="closeDetails()"></div>
+<div class="account-page">
+  <h1>User Information</h1>
+  <div class="account-info">
+    <p>
     Name: {{ user.fname.charAt(0).toUpperCase() + user.fname.slice(1) }}
     {{ user.lname.charAt(0).toUpperCase() + user.lname.slice(1) }}
   </p>
   <p>Email: {{ user.email }}</p>
-  <h1>Favorited Apartments:</h1>
+  </div>
+  <div class="account-info">
+  <h2>Favorite Apartments:</h2>
   <ul *ngFor="let favorite of user.favorites">
     <li>
-      {{ favorite.name }}
-      <div>
-        <a [routerLink]="['apartment-details', favorite._id]">View Details</a>
-      </div>
+      <p>
+        {{ favorite.name }}
+      </p>
+      <!-- <div> -->
+        <a addModal [routerLink]="['apartment-details', favorite._id]">View Details</a>
+      <!-- </div> -->
       <button (click)="deleteFavorite(favorite)">X</button>
       <router-outlet></router-outlet>
     </li>
   </ul>
+  <a class="logoutBtn" (click)="logoutUser()">Logout</a>
 </div>
-<a class="logoutBtn" (click)="logoutUser()">Logout</a>
+</div>

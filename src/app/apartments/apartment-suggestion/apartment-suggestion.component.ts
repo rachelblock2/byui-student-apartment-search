@@ -18,6 +18,7 @@ export class ApartmentSuggestionComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // Check if user is logged in to allow for apartment
     let token = this.accountService.getTokenCookie();
     if (!token) {
       this.router.navigate(['/login']);

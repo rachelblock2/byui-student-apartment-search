@@ -14,8 +14,10 @@ export class HeaderComponent implements OnInit {
   constructor(private accountService: AccountService) {}
 
   ngOnInit(): void {
+    this.accountService.getUser();
     this.subscription = this.accountService.cookieChangedEvent.subscribe(
       (boolean: boolean) => {
+        console.log(boolean);
         this.jwtTokenCheck = boolean;
       }
     );

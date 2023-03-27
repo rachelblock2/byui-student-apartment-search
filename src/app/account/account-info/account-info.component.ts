@@ -25,6 +25,7 @@ export class AccountInfoComponent implements OnInit {
 
   ngOnInit(): void {
     let token = this.accountService.getTokenCookie();
+    console.log(token);
     if (!token) {
       this.router.navigate(['/login']);
     } else {
@@ -32,18 +33,9 @@ export class AccountInfoComponent implements OnInit {
       this.subscription = this.accountService.userInfoEvent.subscribe(
         (user: User) => {
           this.user = user;
-          // this.favorites = this.user.favorites;
-          console.log(this.user);
-          console.log(this.user.favorites[0].address);
         }
       );
     }
-    // this.subscription = this.apartmentService.apartmentListChangedEvent.subscribe(
-    //   (apartments: Apartment[]) => {
-    //     this.apartments = apartments;
-    //   }
-    // )
-    // this.apartmentService.getApartments();
   }
 
   deleteFavorite(favorite) {
@@ -51,8 +43,14 @@ export class AccountInfoComponent implements OnInit {
     this.router.navigate(['/my-account']);
   }
 
+  closeDetails() {
+    // Close the details of the apartment modal
+    this.apartmentService.closeAcctDetails();
+  }
+
   logoutUser() {
     this.accountService.logout();
+    sessionStorage.removeItem('user');
     this.router.navigate(['/apartments']);
   }
 }

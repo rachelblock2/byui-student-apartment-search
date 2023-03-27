@@ -14,8 +14,10 @@ module.exports = (req, res, next) => {
     }
     if (token === null) return res.sendStatus(401);
 
+    // Verifies the JWT sent in request
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         if (err) {
+            // Need to check if token is expired and then to go onto refreshToken method
             console.log(err);
             return res.sendStatus(403);
         }

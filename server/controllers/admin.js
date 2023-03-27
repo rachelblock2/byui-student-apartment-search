@@ -10,6 +10,7 @@ const {
   ObjectId
 } = require('mongodb');
 
+// Gets and saves apartment with corresponding placeId
 exports.addAptId = (req, res, next) => {
   if (!req.body.apartmentName) {
     res.status(400).send({
@@ -20,6 +21,7 @@ exports.addAptId = (req, res, next) => {
 
   const apartmentName = req.body.apartmentName;
 
+  // Find placeId from Google API based on apartment name
   var configTime = {
     method: 'get',
     url: `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=43.825386,-111.792824&radius=1500&keyword=${encodeURIComponent(apartmentName.trim())}&key=${process.env.API_KEY}`,
@@ -29,13 +31,11 @@ exports.addAptId = (req, res, next) => {
   axios(configTime)
     .then((response) => {
       let placeId = response.data.results[0].place_id;
-      console.log(placeId);
       const apartmentIdentifier = new ApartmentIdentifier({
         _id: ObjectId(),
         apartmentName: apartmentName,
         placeId: placeId
       });
-      console.log(apartmentIdentifier);
       apartmentIdentifier.save()
         .then(() => {
           res.status(201).json({
@@ -52,6 +52,7 @@ exports.addAptId = (req, res, next) => {
     })
 }
 
+// Saves name, address, phone, url, images, and website of the apartment
 exports.addAptDetails = (req, res, next) => {
   if (!req.body.placeId) {
     res.status(400).send({
@@ -62,6 +63,7 @@ exports.addAptDetails = (req, res, next) => {
 
   let placeId = req.body.placeId;
 
+  // Find details of apartment based on placeId
   var configTime = {
     method: 'get',
     url: `https://maps.googleapis.com/maps/api/place/details/json?&place_id=${placeId}&key=${process.env.API_KEY}`,
@@ -94,11 +96,10 @@ exports.addAptDetails = (req, res, next) => {
 
           apartmentPhotos.push(`/assets/${photo.photo_reference}.jpeg`);
         } catch (error) {
-          console.log(error);
-          // res.status(500).json({
-          //   message: 'An error occurred',
-          //   error: error
-          // });
+          res.status(500).json({
+            message: 'An error occurred',
+            error: error
+          });
         };
       }
 
@@ -120,17 +121,15 @@ exports.addAptDetails = (req, res, next) => {
     })
 }
 
+// Saves amenities, prices, and gender of apartments
 exports.addAdditionalDetails = (req, res, next) => {
   let id = ObjectId(req.params.id);
-  console.log(id);
   Apartment.findOne({
     _id: id
   }).then(apartment => {
-    console.log(apartment);
     apartment.amenities = req.body.amenities;
     apartment.price = req.body.price;
     apartment.aptGender = req.body.aptGender;
-    console.log(apartment);
     Apartment.updateOne({_id: id}, apartment)
     .then(result => {
       res.status(204).json({
@@ -148,7 +147,7 @@ exports.addAdditionalDetails = (req, res, next) => {
   .catch(error => {
     res.status(500).json({
       message: 'Assignment not found.',
-      error: { assignment: 'Assignment not found'}
+      error: error
     });
   })
 }

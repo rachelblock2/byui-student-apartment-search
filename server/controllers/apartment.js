@@ -10,12 +10,10 @@ const {
   ObjectId
 } = require('mongodb');
 
+// Gets all apartments
 exports.getApartments = async (req, res, next) => {
-  // const testScraperValue = await sundanceScraper();
-  // console.log(testScraperValue);
   Apartment.find()
     .then(apartments => {
-      console.log(apartments);
       res.status(200).json({
         apartments: apartments
       });
@@ -28,20 +26,9 @@ exports.getApartments = async (req, res, next) => {
     })
 }
 
+// Gets apartments that match query parameters from user's search
 exports.getFilteredApartments = (req, res, next) => {
-  console.log(req.query.rating);
-  console.log(typeof req.query.rating);
-
-  // check if user wants exact match with amenities or if every apartment with at least one
-
-  // db.inventory.find({
-  //   dim_cm: {
-  //     $elemMatch: {
-  //       $gt: 22,
-  //       $lt: 30
-  //     }
-  //   }
-  // })
+  // Check for price, amenities, gender, and rating match
   Apartment.find({
       $and: [{
           price: {
@@ -72,57 +59,25 @@ exports.getFilteredApartments = (req, res, next) => {
       ]
     }).then(async (apartments) => {
       for (apartment of apartments) {
+        // Check for time to walk between college and apartment
         const walkTime = await axios(`https://maps.googleapis.com/maps/api/distancematrix/json?destinations=525%20S%20Center%20St%2C%20Rexburg%2C%20ID%2083460&origins=${encodeURIComponent(apartment.address.trim())}&units=imperial&mode=walking&key=${process.env.API_KEY}`);
 
-        console.log(walkTime.data.rows[0].elements[0].duration.text);
         if (walkTime.data.rows[0].elements[0].duration.text > req.query.walkTime) {
           let index = apartments.indexOf(apartment);
           apartments.splice(index, 1);
-          console.log(`Each time walk ${apartments.length}`);
         }
 
+        // Check for time to drive between college and apartment
         const driveTime = await axios(`https://maps.googleapis.com/maps/api/distancematrix/json?destinations=525%20S%20Center%20St%2C%20Rexburg%2C%20ID%2083460&origins=${encodeURIComponent(apartment.address.trim())}&units=imperial&mode=driving&key=${process.env.API_KEY}`);
 
-        console.log(driveTime.data.rows[0].elements[0].duration.text);
         if (driveTime.data.rows[0].elements[0].duration.text > req.query.walkTime) {
           let index = apartments.indexOf(apartment);
           apartments.splice(index, 1);
-          console.log(`Each time drive ${apartments.length}`);
         }
       }
 
-      // apartments.forEach(apartment => {
-      //   console.log(encodeURIComponent(apartment.address.trim()));
-      //   var config = {
-      //     method: 'get',
-      //     url: 'https://maps.googleapis.com/maps/api/distancematrix/json?destinations=525%20S%20Center%20St%2C%20Rexburg%2C%20ID%2083460&origins=' + encodeURIComponent(apartment.address.trim()) + '&units=imperial&mode=driving&key=' + process.env.API_KEY,
-      //     headers: {}
-      //   };
-
-      //   axios(config)
-      //     .then(function (response) {
-      //       // console.log(response.data.rows[0].elements[0].duration.text.split(' ')[0]);
-      //       if (response.data.rows[0].elements[0].duration.text > req.query.driveTime) {
-      //         let index = apartments.indexOf(apartment);
-      //         apartments.splice(index, 1);
-      //       }
-      //     })
-      // })
-      // console.log(`This is apartments checked for driving: ${apartments}`);
-
-      // https://maps.googleapis.com/maps/api/place/details/json?fields=rating&place_id=ChIJFeJISgQLVFMRNvPAL9M65Iw&key=AIzaSyDzs5gbeZEVBQNpTMMfxIdxoGamfA8PCFI
-      // for (apartment of apartments) {
-      // var configRatings = {
-      //   method: 'get',
-      //   url: `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${encodeURIComponent(apartment.name.trim())}&inputtype=textquery&fields=rating&key=${process.env.API_KEY}`,
-      //   headers: {}
-      // };        
-      // }
-
-
-      console.log(`These are the final apartments: ${apartments.length}`)
       res.status(200).json({
-          message: 'Successfully found apartments!',
+          message: 'Apartments have been searched!',
           apartments: apartments
         })
         .catch(error => {
@@ -133,10 +88,14 @@ exports.getFilteredApartments = (req, res, next) => {
         })
     })
     .catch(function (error) {
-      console.log(error);
+      res.status(500).json({
+        message: 'An error occurred',
+        error: error
+      });
     });
 }
 
+// Gets driving time for specific apartment
 exports.getDrivingTime = (req, res, next) => {
   let config = getTime(req.query.location, "driving");
   axios(config)
@@ -148,6 +107,7 @@ exports.getDrivingTime = (req, res, next) => {
     });
 }
 
+// Gets walking time for specific apartment
 exports.getWalkingTime = (req, res, next) => {
   let config = getTime(req.query.location, "walking");
   axios(config)
@@ -159,6 +119,7 @@ exports.getWalkingTime = (req, res, next) => {
     });
 }
 
+// Gets time between apartment and college
 function getTime(location, method) {
   var config = {
     method: 'get',
@@ -168,29 +129,13 @@ function getTime(location, method) {
   return config;
 }
 
-exports.getRatings = (req, res, next) => {
-  var configRatings = {
-    method: 'get',
-    url: `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${encodeURIComponent(apartment.name.trim())}&inputtype=textquery&fields=rating&key=${process.env.API_KEY}`,
-    headers: {}
-  };
-
-  axios(configRatings)
-    .then(function (response) {
-      console.log(JSON.stringify(response.data));
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-}
-
+// Gets an individual apartment with its details
 exports.getApartment = (req, res, next) => {
   let id = ObjectId(req.params.id);
   Apartment.findOne({
       "_id": id
     })
     .then(apartment => {
-      console.log(apartment)
       res.status(200).json({
         message: 'Successfully found apartment!',
         apartment: apartment
@@ -204,16 +149,16 @@ exports.getApartment = (req, res, next) => {
     })
 }
 
+// Creates an apartment suggestion from user
 exports.suggestApartment = (req, res, next) => {
   const aptName = req.body.aptName;
   const userId = ObjectId(req.body.id);
-  console.log(aptName, userId);
+  // Check if suggested apartment already exists
   Apartment.findOne({
       name: aptName
     })
     .populate("favorites")
     .then((apartment) => {
-      console.log(apartment);
       if (apartment !== null) {
         res.status(422).send({
           message: "Apartment already exists."
@@ -225,7 +170,6 @@ exports.suggestApartment = (req, res, next) => {
           userId: userId
         })
 
-        console.log(newAptSuggestion);
         newAptSuggestion.save()
           .then((result) => {
             res.status(201).send({
@@ -233,7 +177,6 @@ exports.suggestApartment = (req, res, next) => {
               aptName: aptName
             })
           })
-
           .catch((err) => {
             if (!err.statusCode) {
               err.statusCode = 500;

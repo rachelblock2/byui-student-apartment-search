@@ -4,7 +4,6 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
   selector: '[addModal]',
 })
 export class AddModalDirective {
-  // @Input() addModal = '';
   constructor(private el: ElementRef) { }
 
   @HostListener('click') onClick() {

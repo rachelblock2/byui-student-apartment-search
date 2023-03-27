@@ -7,7 +7,7 @@ let jwt = require('jsonwebtoken');
 
 const authController = require('../controllers/auth');
 
-//Sign up for an account
+//Signs a user up for an account
 router.post(
     '/signup',
    //  [
@@ -28,7 +28,7 @@ router.post(
     authController.signup
  );
 
-// Log into account
+// Logs a user into their account
 router.post('/login', 
 [
   body('email')
@@ -40,14 +40,19 @@ router.post('/login',
 ], 
 authController.login);
 
-// router.post('/token', authController.token);
+// Needs to resend token because the state is refreshed
+router.get('/refreshToken', isAuth, authController.refreshToken);
 
+// Verifies a user is logged in and logs user out
 router.post('/logout', isAuth, authController.logout);
 
+// Gets individual user information
 router.get('/user-info/:id', isAuth, authController.getUser);
 
+// Adds a favorite apartment to a user's favorites on their account
 router.post('/addFavorite', isAuth, authController.addFavorite);
 
+// Deletes a favorite apartment from a user's favorites on their account
 router.post('/deleteFavorite', isAuth, authController.deleteFavorite);
 
 module.exports = router;

@@ -12,6 +12,6 @@
 </div>
 <p>Google Reviews: </p><a [href]="apartment.url">{{ apartment.url }}</a>
 <p>Apartment Website: </p><a [href]="apartment.website">{{ apartment.website }}</a>
-<button (click)="addFavorite(apartment)"><a>Add to Favorites</a></button>
+<button removeModal (click)="addFavorite(apartment)"><a>Add to Favorites</a></button>
 <button removeModal (click)="closeDetails()"><a>Return to Apartments</a></button>
 </div>

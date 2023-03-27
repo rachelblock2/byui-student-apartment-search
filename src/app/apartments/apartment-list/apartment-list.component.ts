@@ -22,10 +22,7 @@ export class ApartmentListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // if (this.route.snapshot.queryParamMap.get('apartments') != "") {
-    //   console.log(this.route.snapshot);
-    // } else {
-    console.log('its empty when component loads in');
+    // Get all the apartments
     this.subscription =
       this.apartmentService.apartmentListChangedEvent.subscribe(
         (apartments: Apartment[]) => {
@@ -33,11 +30,10 @@ export class ApartmentListComponent implements OnInit {
         }
       );
     this.apartmentService.getApartments();
-    // }
   }
 
   selectFilter(event) {
-    console.log(event.target.value);
+    // Sort apartments on the page
     if (event.target.value === "aptName") {
       this.apartments.sort((a, b) => (a.name > b.name) ? 1 :((b.name > a.name) ? -1 : 0));
       console.log(this.apartments);
@@ -72,9 +68,5 @@ export class ApartmentListComponent implements OnInit {
 
   // ngOnDestroy() {
   //   this.subscription.unsubscribe();
-  // }
-
-  // openNewPage() {
-  //   this.router.navigate(["/details"])
   // }
 }
