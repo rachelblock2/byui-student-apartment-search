@@ -8,6 +8,7 @@ import { AccountService } from '../account/account.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
+  error: string;
   jwtTokenCheck: boolean = false;
   subscription: Subscription;
 
@@ -17,15 +18,11 @@ export class HeaderComponent implements OnInit {
     this.accountService.getUser();
     this.subscription = this.accountService.cookieChangedEvent.subscribe(
       (boolean: boolean) => {
-        console.log(boolean);
         this.jwtTokenCheck = boolean;
+      },
+      (error: any) => {
+        this.error = error.message;
       }
     );
-    console.log(this.jwtTokenCheck);
-    // if (this.accountService.getTokenCookie() !== "") {
-    //   this.jwtTokenCheck = true;
-    // } else {
-    //   this.jwtTokenCheck = false;
-    // }
   }
 }

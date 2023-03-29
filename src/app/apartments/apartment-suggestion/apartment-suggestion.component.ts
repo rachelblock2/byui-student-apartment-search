@@ -11,6 +11,7 @@ import { AccountService } from 'src/app/account/account.service';
 export class ApartmentSuggestionComponent implements OnInit {
   suggestionForm: FormGroup;
   message: string;
+  error: string;
 
   constructor( private router: Router,
     private accountService: AccountService,
@@ -30,8 +31,12 @@ export class ApartmentSuggestionComponent implements OnInit {
   }
 
   onSubmit(suggestionData) {
-    this.accountService.suggestApartment(suggestionData.value.aptName);
-    this.router.navigate(['/apartment-suggestion']);
+    try {
+      this.accountService.suggestApartment(suggestionData.value.aptName);
+      this.router.navigate(['/apartment-suggestion']);
+    } catch (error) {
+      this.error = error;
+    }
   }
 
 }

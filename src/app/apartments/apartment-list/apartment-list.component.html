@@ -20,8 +20,9 @@
   </label>
 </div>
 <div class="apartment-container">
-  <p *ngIf="apartments.length < 60" >Your search returned {{ apartments.length }} results.</p>
-  <p *ngIf="apartments.length === 0" routerLink="/apartment-search">Refine your search</p>
+  <p *ngIf="apartments.length < 60">Your search returned {{ apartments.length }} results.</p>
+  <p *ngIf="apartments.length === 0"><a routerLink="/apartment-search">Refine your search</a></p>
+  <div *ngIf="error">{{ error }}</div>
   <div class="apartment-data">
     <app-apartment-item
       *ngFor="let apartment of apartments"

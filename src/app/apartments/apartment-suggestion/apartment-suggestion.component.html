@@ -17,6 +17,7 @@
         >Apartment name is required!</span
       >
     </div>
+    <div *ngIf="error">{{ error }}</div>
     <button
       type="submit"
       value="Submit"

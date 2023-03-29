@@ -11,11 +11,16 @@ declare const $: any;
 })
 export class ApartmentCarouselComponent implements AfterViewInit {
   @Input() apartment: Apartment;
+  error: string;
 
   constructor() { }
 
   ngAfterViewInit(){
+    try {
     $('#carouselExampleCaptions').carousel();
+    } catch (error) {
+      this.error = error;
+    }
   }
 
 }

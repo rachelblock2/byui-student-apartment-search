@@ -125,6 +125,7 @@
         >
           Checkbox is required, select at least one value.
         </p>
+        <div *ngIf="error">{{ error }}</div>
         <input type="submit" value="Search Apartments" />
         <!-- <button class="btn btn-danger" type="button" (click)="onCancel()">Cancel</button> -->
       </fieldset>

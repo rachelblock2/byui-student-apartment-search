@@ -67,6 +67,7 @@
         >Password is required! Please enter at least 7 characters.</span
       >
     </div>
+    <div *ngIf="error">{{ error }}</div>
     <button type="submit" [disabled]="!signupForm.valid" value="Submit">
       Submit
     </button>

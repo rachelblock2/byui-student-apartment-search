@@ -30,6 +30,7 @@
         >Password is required!</span
       >
     </div>
+    <div *ngIf="error">{{ error }}</div>
     <button type="submit" value="Submit" [disabled]="!loginForm.valid">Login</button>
   </form>
   <p class="signupText">Don't have an account yet? Sign up to save your favorite apartments to your account!</p>

@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 import { Apartment } from '../apartment.model';
 import { ApartmentService } from '../apartment.service';
@@ -17,6 +18,7 @@ import { ApartmentService } from '../apartment.service';
   styleUrls: ['./apartment-search.component.css'],
 })
 export class ApartmentSearchComponent implements OnInit {
+  error: string;
   subscription: Subscription;
   apartments: Apartment[] = [];
   searchForm: FormGroup;
@@ -62,7 +64,8 @@ export class ApartmentSearchComponent implements OnInit {
   constructor(
     private router: Router,
     private apartmentService: ApartmentService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private cookieService: CookieService
   ) {}
 
   ngOnInit() {
@@ -77,56 +80,72 @@ export class ApartmentSearchComponent implements OnInit {
   }
 
   onCheckboxAptGenderChange(e) {
-    // Add checked gender to search query
-    const aptGenderOptions: FormArray = this.searchForm.get(
-      'aptGenderOptions'
-    ) as FormArray;
-    if (e.target.checked) {
-      aptGenderOptions.push(new FormControl(e.target.value));
-    } else {
-      // Remove checked amenities to search query
-      let i: number = 0;
-      aptGenderOptions.controls.forEach((item: FormControl) => {
-        if (item.value == e.target.value) {
-          aptGenderOptions.removeAt(i);
-          return;
-        }
-        i++;
-      });
+    try {
+      // Add checked gender to search query
+      const aptGenderOptions: FormArray = this.searchForm.get(
+        'aptGenderOptions'
+      ) as FormArray;
+      if (e.target.checked) {
+        aptGenderOptions.push(new FormControl(e.target.value));
+      } else {
+        // Remove checked amenities to search query
+        let i: number = 0;
+        aptGenderOptions.controls.forEach((item: FormControl) => {
+          if (item.value == e.target.value) {
+            aptGenderOptions.removeAt(i);
+            return;
+          }
+          i++;
+        });
+      }
+    } catch (error) {
+      this.error = error;
     }
   }
 
   onCheckboxAmenitiesChange(e) {
-    // Add checked amenities to search query
-    const amenities: FormArray = this.searchForm.get('amenities') as FormArray;
-    if (e.target.checked) {
-      amenities.push(new FormControl(e.target.value));
-    } else {
-      // Remove checked amenities to search query
-      let i: number = 0;
-      amenities.controls.forEach((item: FormControl) => {
-        if (item.value == e.target.value) {
-          amenities.removeAt(i);
-          return;
-        }
-        i++;
-      });
+    try {
+      // Add checked amenities to search query
+      const amenities: FormArray = this.searchForm.get(
+        'amenities'
+      ) as FormArray;
+      if (e.target.checked) {
+        amenities.push(new FormControl(e.target.value));
+      } else {
+        // Remove checked amenities to search query
+        let i: number = 0;
+        amenities.controls.forEach((item: FormControl) => {
+          if (item.value == e.target.value) {
+            amenities.removeAt(i);
+            return;
+          }
+          i++;
+        });
+      }
+    } catch (error) {
+      this.error = error;
     }
   }
 
   onSubmit(aptSearchFilterData) {
-    // Submit user selected values in search query
-    this.subscription =
-      this.apartmentService.apartmentListChangedEvent.subscribe(
-        (apartments: Apartment[]) => {
-          this.apartments = apartments;
-          this.router.navigate(['/apartments']);
-        }
-      );
-    this.apartmentService.getFilteredApartments(aptSearchFilterData.value);
+    try {
+      // Submit user selected values in search query
+      this.subscription =
+        this.apartmentService.apartmentListChangedEvent.subscribe(
+          (apartments: Apartment[]) => {
+            this.apartments = apartments;
+            // Differentiates between searched apartments in apartment list component and full list
+            this.cookieService.set('searching', 'true');
+            this.router.navigate(['/apartments']);
+          },
+          (error: any) => {
+            this.error = error.message;
+          }
+        );
+      this.apartmentService.getFilteredApartments(aptSearchFilterData.value);
+    } catch (error) {
+      this.error = error;
+    }
   }
 
-  // ngOnDestroy() {
-  //   this.subscription.unsubscribe();
-  // }
 }

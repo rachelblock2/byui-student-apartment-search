@@ -30,7 +30,8 @@ exports.signup = async (req, res, next) => {
     const error = new Error('Validation failed.');
     error.data = errors.array();
     res.status(422).send({
-      message: error.data
+      message: "An error occurred", 
+      error: error.data
     });
     throw error;
   }
@@ -78,7 +79,8 @@ exports.login = (req, res, next) => {
     const error = new Error('Validation failed.');
     error.data = errors.array();
     res.status(422).send({
-      message: error.data
+      message: "An error occurred",
+      error: error.data
     });
     throw error;
   }
@@ -183,7 +185,8 @@ exports.logout = (req, res, next) => {
       });
     } else {
       res.status(400).send({
-        message: 'Error!',
+        message: 'An error occurred',
+        error: err
       });
     }
   });

@@ -8,7 +8,6 @@ export class ToggleHeaderDirective {
   constructor() { }
 
   @HostListener('click') onClick() {
-    const hambutton = document.querySelector('.mobile-btn');
     const mainnav = document.querySelector('.navigation');
 
     mainnav.classList.toggle('responsive');

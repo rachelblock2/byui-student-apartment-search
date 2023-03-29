@@ -10,5 +10,6 @@
   <div>
     <a addModal [routerLink]="['details', apartment._id]">View Details</a>
   </div>
+  <div *ngIf="error">{{ error }}</div>
   <p id="spacer"></p>
 </div>

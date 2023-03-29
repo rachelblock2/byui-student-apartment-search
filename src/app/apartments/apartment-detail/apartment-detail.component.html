@@ -1,14 +1,17 @@
 <div class="apt-details">
 <app-apartment-carousel [apartment]="apartment"></app-apartment-carousel>
+<div *ngIf="error">{{ error }}</div>
 <h1>{{ apartment.name }}</h1>
 <p>Location: {{ apartment.address }}</p>
 <p>Phone Number: {{ apartment.phone }}</p>
 <p>Walking distance from Campus: {{ walkTimeToSchool }}</p>
 <p>Driving distance from Campus: {{ driveTimeToSchool }}</p>
-<p>Amenities: {{ apartment.amenities.join(', ') }}</p>
+<p>Amenities: {{ readableAmenities.join(', ') }}</p>
+<p>Price options available (depending on semester)</p>
 <div *ngFor="let price of apartment.price">
     <p>${{ price }} per semester</p>
     <p>${{ price / 3 | number:'3.1-2'}} per month of the semester</p>
+    <p>----</p>
 </div>
 <p>Google Reviews: </p><a [href]="apartment.url">{{ apartment.url }}</a>
 <p>Apartment Website: </p><a [href]="apartment.website">{{ apartment.website }}</a>

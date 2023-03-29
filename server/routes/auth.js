@@ -10,21 +10,23 @@ const authController = require('../controllers/auth');
 //Signs a user up for an account
 router.post(
     '/signup',
-   //  [
-   //     body('email')
-   //        .isEmail()
-   //        .withMessage('Please enter a valid email.')
-   //        .custom((value, { req }) => {
-   //           return User.findOne({ email: value }).then((userDoc) => {
-   //              if (userDoc) {
-   //                 return Promise.reject('Email address exists already!');
-   //              }
-   //           });
-   //        }),
-   //     body('password').trim().isLength({ min: 7 }),
-   //     body('fname').trim().not().isEmpty(),
-   //     body('lname').trim().not().isEmpty(),
-   //  ],
+    [
+       body('email')
+          .isEmail()
+          .withMessage('Please enter a valid email.')
+          .custom((value, { req }) => {
+             return User.findOne({ email: value }).then((userDoc) => {
+                if (userDoc) {
+                  res.status(400).send({
+                     message: 'User exists already!'
+                   })
+                }
+             });
+          }),
+       body('password').trim().isLength({ min: 7 }),
+       body('fname').trim().not().isEmpty(),
+       body('lname').trim().not().isEmpty(),
+    ],
     authController.signup
  );
 

@@ -103,7 +103,10 @@ exports.getDrivingTime = (req, res, next) => {
       res.send(response.data);
     })
     .catch(function (error) {
-      console.log(error);
+      res.status(500).json({
+        message: 'An error occurred',
+        error: error
+      });
     });
 }
 
@@ -115,7 +118,10 @@ exports.getWalkingTime = (req, res, next) => {
       res.send(response.data);
     })
     .catch(function (error) {
-      console.log(error);
+      res.status(500).json({
+        message: 'An error occurred',
+        error: error
+      });
     });
 }
 

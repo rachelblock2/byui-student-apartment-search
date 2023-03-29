@@ -22,6 +22,7 @@
       <router-outlet></router-outlet>
     </li>
   </ul>
+  <div *ngIf="error">{{ error }}</div>
   <a class="logoutBtn" (click)="logoutUser()">Logout</a>
 </div>
 </div>

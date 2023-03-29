@@ -9,6 +9,7 @@
     <li routerLinkActive="active">
       <a routerLink="/apartment-search">Search Apartments</a>
     </li>
+    <div *ngIf="error">{{ error }}</div>
     <li *ngIf="jwtTokenCheck === true" routerLinkActive="active">
       <a routerLink="/apartment-suggestion">Apartment Suggestion</a>
     </li>

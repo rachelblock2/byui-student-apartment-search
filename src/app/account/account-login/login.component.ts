@@ -9,6 +9,7 @@ import { AccountService } from '../account.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  error: string;
   loginForm: FormGroup;
 
   constructor( private router: Router,
@@ -24,18 +25,12 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(loginData) {
+    try {
     this.accountService.login(loginData.value.email, loginData.value.password);
     this.router.navigate(['/apartments']);
+    } catch (error) {
+      this.error = error;
+    }
   }
-
-  // ngOnDestroy() {
-  //   this.subscription.unsubscribe();
-  // }
-
-  // onCancel() {
-  //   this.router.navigate(['/apartments']);
-  // }
-
-  // }
 
 }

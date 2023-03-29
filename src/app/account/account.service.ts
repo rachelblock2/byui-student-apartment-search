@@ -49,6 +49,9 @@ export class AccountService {
         (error: HttpErrorResponse) => {
           if (error.status === 422) {
             this.router.navigate(['/signup']);
+            return error.message;
+          } else {
+            return error.message;
           }
         }
       );
@@ -82,6 +85,9 @@ export class AccountService {
         this.cookieService.set('refresh_token', responseData.refreshToken);
         this.user = responseData.user;
         this.fireChangedJWTUser(true);
+      },
+      (error: any) => {
+        return error.message;
       });
   }
 
@@ -107,7 +113,6 @@ export class AccountService {
   getUser() {
     let accessToken = this.getTokenCookie();
     let user = JSON.parse(sessionStorage.getItem('user'));
-    // console.log(JSON.parse(user));
     let id;
     // There's no user after the page refreshes state, the user needs to be got again
     if (!user) {
@@ -125,6 +130,9 @@ export class AccountService {
         this.user = responseData.user;
         this.fireChangedJWTUser(true);
         this.userInfoEvent.next(this.user);
+      },
+      (error: any) => {
+        return error.message;
       });
   }
 
@@ -142,28 +150,25 @@ export class AccountService {
   // Logs the user out of their account
   logout() {
     let accessToken = this.getTokenCookie();
-    console.log(accessToken);
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,
     });
-    // console.log(headers);
-    // console.log(headers["authorization"]);
     this.http
       .post('http://localhost:3000/auth/logout', null, { headers: headers })
       .subscribe((responseData) => {
-        console.log(responseData);
         this.cookieService.delete('jwt_token');
         sessionStorage.removeItem('user');
-        console.log('token is deleted');
         this.fireChangedJWTUser(false);
+      },
+      (error: any) => {
+        return error.message;
       });
   }
 
   // Adds a favorite apartment to the user's account
   addFavorite(apartment) {
     let accessToken = this.getTokenCookie();
-    console.log(accessToken);
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,
@@ -176,16 +181,16 @@ export class AccountService {
         { headers: headers }
       )
       .subscribe((responseData) => {
-        console.log(responseData);
-        // this.apartmentService.getApartment(responseData.user.favorites[Array.length - 1]);
+        return;
+      },
+      (error: any) => {
+        return error.message;
       });
   }
 
   // Removes a favorite apartment to the user's account
   deleteFavorite(apartment) {
     let accessToken = this.getTokenCookie();
-    console.log(accessToken);
-    console.log(apartment);
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,
@@ -198,15 +203,16 @@ export class AccountService {
         { headers: headers }
       )
       .subscribe((responseData) => {
-        console.log(responseData);
+        return;
+      },
+      (error: any) => {
+        return error.message;
       });
   }
 
   // Creates an apartment suggestion from the user
   suggestApartment(aptName) {
     let accessToken = this.getTokenCookie();
-    console.log(accessToken);
-    console.log(aptName);
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,
@@ -218,8 +224,13 @@ export class AccountService {
         { aptName: aptName, id: this.user._id },
         { headers: headers }
       )
-      .subscribe((responseData) => {
-        console.log(responseData);
-      });
+      .subscribe(
+        (responseData) => {
+          return;
+        },
+        (error: any) => {
+          return error.message;
+        }
+      );
   }
 }

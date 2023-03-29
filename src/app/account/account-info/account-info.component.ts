@@ -13,8 +13,7 @@ import { AccountService } from '../account.service';
 })
 export class AccountInfoComponent implements OnInit {
   user: User;
-  // favorite: Apartment[{}];
-  // favorites: [{}];
+  error: string;
   subscription: Subscription;
 
   constructor(
@@ -25,7 +24,6 @@ export class AccountInfoComponent implements OnInit {
 
   ngOnInit(): void {
     let token = this.accountService.getTokenCookie();
-    console.log(token);
     if (!token) {
       this.router.navigate(['/login']);
     } else {
@@ -34,23 +32,38 @@ export class AccountInfoComponent implements OnInit {
         (user: User) => {
           this.user = user;
         }
-      );
+      ),
+      (error: any) => {
+        this.error = error.message;
+      };
     }
   }
 
   deleteFavorite(favorite) {
+    try {
     this.accountService.deleteFavorite(favorite);
     this.router.navigate(['/my-account']);
+    } catch (error) {
+      this.error = error;
+    }
   }
 
   closeDetails() {
+    try {
     // Close the details of the apartment modal
     this.apartmentService.closeAcctDetails();
+    } catch (error) {
+      this.error = error;
+    }
   }
 
   logoutUser() {
+    try {
     this.accountService.logout();
     sessionStorage.removeItem('user');
     this.router.navigate(['/apartments']);
+    } catch (error) {
+      this.error = error;
+    }
   }
 }

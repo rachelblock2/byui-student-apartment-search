@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { Subject } from 'rxjs';
 import { Apartment } from './apartment.model';
 
@@ -11,7 +12,11 @@ export class ApartmentService {
   apartmentListChangedEvent = new Subject<Apartment[]>();
   apartments: Apartment[] = [];
 
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private cookieService: CookieService
+  ) {}
 
   // Sorts apartments alphabetically, then fires event on subject
   sortAndSend() {
@@ -23,8 +28,14 @@ export class ApartmentService {
 
   // Gets all apartments
   getApartments() {
-    if (this.apartments.length > 0) {
+    // Checks if apartments are loaded in through search query
+    if (
+      this.apartments.length > 0 ||
+      (this.apartments.length === 0 && this.cookieService.get('searching'))
+    ) {
       this.sortAndSend();
+      this.cookieService.delete('searching');
+      // Loads in full list of apartments
     } else {
       this.http
         .get<{ apartments: Apartment[] }>('http://localhost:3000/apartments/')
@@ -34,7 +45,7 @@ export class ApartmentService {
             this.sortAndSend();
           },
           (error: any) => {
-            console.log(error.message);
+            return error.message;
           }
         );
     }
@@ -66,9 +77,10 @@ export class ApartmentService {
       .subscribe((response) => {
         this.apartments = response.apartments;
         this.sortAndSend();
-      }, (error: any) => {
-        console.log(error.message);
-      })
+      },
+      (error: any) => {
+        return error.message;
+      });
   }
 
   // Gets amount of time walking between apartment and college
@@ -79,7 +91,7 @@ export class ApartmentService {
       { params: { location: location } }
     );
   }
-  
+
   // Gets amount of time driving between apartment and college
   getDrivingDistance(apartment: Apartment) {
     let location = encodeURIComponent(apartment.address.trim());
@@ -95,14 +107,14 @@ export class ApartmentService {
       'http://localhost:3000/apartments/details/' + _id
     );
   }
-  
+
   // Closes open modal of apartment details
   closeDetails() {
-    this.router.navigate(["apartments"]);
+    this.router.navigate(['apartments']);
   }
 
   closeAcctDetails() {
-    this.router.navigate(["my-account"])
+    this.router.navigate(['my-account']);
   }
 
   addApartment(apartment: Apartment) {
@@ -127,6 +139,9 @@ export class ApartmentService {
         apartment._id = responseData.apartment._id;
         this.apartments.push(responseData.apartment);
         this.sortAndSend();
+      },
+      (error: any) => {
+        return error.message;
       });
   }
 
@@ -134,9 +149,6 @@ export class ApartmentService {
     if (!originalApartment || !newApartment) {
       return;
     }
-
-    console.log(originalApartment);
-    console.log(newApartment);
 
     const position = this.apartments.findIndex(
       (a) => a._id === originalApartment._id
@@ -158,10 +170,11 @@ export class ApartmentService {
         { headers: headers }
       )
       .subscribe((responseData) => {
-        console.log(responseData);
         this.apartments[position] = newApartment;
-        console.log(newApartment);
         this.sortAndSend();
+      },
+      (error: any) => {
+        return error.message;
       });
   }
 
@@ -181,7 +194,9 @@ export class ApartmentService {
       .subscribe((responseData) => {
         this.apartments.splice(position, 1);
         this.sortAndSend();
+      },
+      (error: any) => {
+        return error.message;
       });
   }
-
 }
