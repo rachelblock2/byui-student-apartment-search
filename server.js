@@ -62,7 +62,7 @@ app.get('*', (req, res) => {
 
 
 // establish a connection to the mongo database
-mongoose.connect('mongodb+srv://rachellof:RJb6k0rJvK9ViKMT@cluster0.z8i5l.mongodb.net/byui-apartment-search',
+mongoose.connect(process.env.MONGO_URI,
    { useNewUrlParser: true }, (err, res) => {
       if (err) {
          console.log('Connection failed: ' + err);
