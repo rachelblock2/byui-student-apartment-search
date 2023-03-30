@@ -82,7 +82,7 @@ export class AccountService {
       .subscribe((responseData) => {
         this.cookieService.set('jwt_token', responseData.accessToken);
         sessionStorage.setItem('user', JSON.stringify(responseData.user));
-        this.cookieService.set('refresh_token', responseData.refreshToken);
+        // this.cookieService.set('refresh_token', responseData.refreshToken);
         this.user = responseData.user;
         this.fireChangedJWTUser(true);
       },

@@ -107,9 +107,9 @@ exports.login = (req, res, next) => {
             user
           }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "15m" });
           
-          const refreshToken = jwt.sign({
-            user
-          }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "15m" });
+          // const refreshToken = jwt.sign({
+          //   user
+          // }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "15m" });
           
           // Removing sensitve data before returning user object repsonse
           let modUser = {
@@ -126,7 +126,7 @@ exports.login = (req, res, next) => {
           res.status(201).send({
             message: "User Logged In",
             accessToken: accessToken,
-            refreshToken: refreshToken,
+            // refreshToken: refreshToken,
             user: modUser
           })
         } else {
@@ -138,17 +138,17 @@ exports.login = (req, res, next) => {
     })
 }
 
-// Should reaffirm user is logged in with JWT
-exports.refreshToken = (req, res, next) => {
-  console.log(req.user);
-  const accessToken = jwt.sign(req.user, process.env.ACCESS_TOKEN_SECRET);
-  res.status(201).send({
-    message: "User Refreshed",
-    accessToken: accessToken,
-    // refreshToken: refreshToken,
-    user: req.user.user
-  })
-}
+// // Should reaffirm user is logged in with JWT
+// exports.refreshToken = (req, res, next) => {
+//   console.log(req.user);
+//   const accessToken = jwt.sign(req.user, process.env.ACCESS_TOKEN_SECRET);
+//   res.status(201).send({
+//     message: "User Refreshed",
+//     accessToken: accessToken,
+//     // refreshToken: refreshToken,
+//     user: req.user.user
+//   })
+// }
 
 // Gets user's account information
 exports.getUser = (req, res, next) => {

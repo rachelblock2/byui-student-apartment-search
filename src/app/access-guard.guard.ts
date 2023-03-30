@@ -19,7 +19,6 @@ export class AccessGuard implements CanActivate {
         this.router.navigate(['/login']);
         return false;
       } else {
-        console.log('User is authenticated!');
         return true;
       }
       // Check that the user is logged in...
