@@ -51,9 +51,9 @@ app.use(express.static(path.join(__dirname, 'dist/byui-student-apartment-search'
 
 // Tell express to map the default route ('/') to the index route
 app.use('/', index);
-app.use('/apartments', apartmentRoutes);
-app.use('/auth', authRoutes);
-app.use('/admin', adminRoutes);
+app.use('/api/apartments', apartmentRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Tell express to map all other non-defined routes back to the index page
 app.get('*', (req, res) => {

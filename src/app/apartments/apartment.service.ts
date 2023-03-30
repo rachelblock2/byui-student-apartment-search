@@ -38,7 +38,7 @@ export class ApartmentService {
       // Loads in full list of apartments
     } else {
       this.http
-        .get<{ apartments: Apartment[] }>('http://localhost:3000/apartments/')
+        .get<{ apartments: Apartment[] }>('https://byui-apartment-search.onrender.com/api/apartments/')
         .subscribe(
           (response) => {
             this.apartments = response.apartments;
@@ -62,7 +62,7 @@ export class ApartmentService {
   }) {
     this.http
       .get<{ apartments: Apartment[] }>(
-        'http://localhost:3000/apartments/filtered',
+        'https://byui-apartment-search.onrender.com/apartments/filtered',
         {
           params: {
             price: apartmentFilterData.price,
@@ -87,7 +87,7 @@ export class ApartmentService {
   getWalkingDistance(apartment: Apartment) {
     let location = encodeURIComponent(apartment.address.trim());
     return this.http.get<any>(
-      'http://localhost:3000/apartments/distance/walking',
+      'https://byui-apartment-search.onrender.com/api/apartments/distance/walking',
       { params: { location: location } }
     );
   }
@@ -96,7 +96,7 @@ export class ApartmentService {
   getDrivingDistance(apartment: Apartment) {
     let location = encodeURIComponent(apartment.address.trim());
     return this.http.get<any>(
-      'http://localhost:3000/apartments/distance/driving',
+      'https://byui-apartment-search.onrender.com/api/apartments/distance/driving',
       { params: { location: location } }
     );
   }
@@ -104,7 +104,7 @@ export class ApartmentService {
   // Gets individual apartment based on id
   getApartment(_id: string) {
     return this.http.get<{ message: string; apartment: Apartment }>(
-      'http://localhost:3000/apartments/details/' + _id
+      'https://byui-apartment-search.onrender.com/api/apartments/details/' + _id
     );
   }
 
@@ -130,7 +130,7 @@ export class ApartmentService {
     // add to database
     this.http
       .post<{ message: string; apartment: Apartment }>(
-        'http://localhost:3000/admin/addAptId',
+        'https://byui-apartment-search.onrender.com/api/admin/addAptId',
         apartment,
         { headers: headers }
       )
@@ -165,7 +165,7 @@ export class ApartmentService {
     // update database
     this.http
       .put(
-        'http://localhost:3000/apartments/' + originalApartment._id,
+        'https://byui-apartment-search.onrender.com/api/apartments/' + originalApartment._id,
         newApartment,
         { headers: headers }
       )
@@ -190,7 +190,7 @@ export class ApartmentService {
 
     // delete from database
     this.http
-      .delete('http://localhost:3000/apartments/' + apartment._id)
+      .delete('https://byui-apartment-search.onrender.com/api/apartments/' + apartment._id)
       .subscribe((responseData) => {
         this.apartments.splice(position, 1);
         this.sortAndSend();

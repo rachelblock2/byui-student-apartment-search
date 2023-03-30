@@ -39,7 +39,7 @@ export class AccountService {
 
     // add to database
     this.http
-      .post<{ message: string }>('http://localhost:3000/auth/signup', user, {
+      .post<{ message: string }>('https://byui-apartment-search.onrender.com//api/auth/signup', user, {
         headers: headers,
       })
       .subscribe(
@@ -72,7 +72,7 @@ export class AccountService {
         refreshToken: string;
         user: User;
       }>(
-        'http://localhost:3000/auth/login',
+        'https://byui-apartment-search.onrender.com/api/auth/login',
         {
           email: email,
           password: password,
@@ -98,7 +98,7 @@ export class AccountService {
   //     Authorization: `Bearer ${accessToken}`,
   //   });
   //   this.http
-  //     .get(`http://localhost:3000/auth/refreshToken`, { headers: headers })
+  //     .get(`https://byui-apartment-search.onrender.com/api/auth/refreshToken`, { headers: headers })
   //     .subscribe((responseData: any) => {
   //       console.log(responseData);
   //       console.log('refreshtoken ran');
@@ -125,7 +125,7 @@ export class AccountService {
       Authorization: `Bearer ${accessToken}`,
     });
     this.http
-      .get(`http://localhost:3000/auth/user-info/${id}`, { headers: headers })
+      .get(`https://byui-apartment-search.onrender.com/api/auth/user-info/${id}`, { headers: headers })
       .subscribe((responseData: any) => {
         this.user = responseData.user;
         this.fireChangedJWTUser(true);
@@ -155,7 +155,7 @@ export class AccountService {
       Authorization: `Bearer ${accessToken}`,
     });
     this.http
-      .post('http://localhost:3000/auth/logout', null, { headers: headers })
+      .post('https://byui-apartment-search.onrender.com//api/auth/logout', null, { headers: headers })
       .subscribe((responseData) => {
         this.cookieService.delete('jwt_token');
         sessionStorage.removeItem('user');
@@ -176,7 +176,7 @@ export class AccountService {
 
     this.http
       .post<{ message: string }>(
-        'http://localhost:3000/auth/addFavorite',
+        'https://byui-apartment-search.onrender.com/api/auth/addFavorite',
         { apartment: apartment, id: this.user._id },
         { headers: headers }
       )
@@ -198,7 +198,7 @@ export class AccountService {
 
     this.http
       .post<{ message: string }>(
-        'http://localhost:3000/auth/deleteFavorite',
+        'https://byui-apartment-search.onrender.com/api/auth/deleteFavorite',
         { apartment: apartment, id: this.user._id },
         { headers: headers }
       )
@@ -220,7 +220,7 @@ export class AccountService {
 
     this.http
       .post<{ message: string; aptName: string }>(
-        'http://localhost:3000/apartments/suggestApartment',
+        'https://byui-apartment-search.onrender.com/api/apartments/suggestApartment',
         { aptName: aptName, id: this.user._id },
         { headers: headers }
       )
