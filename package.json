@@ -5,10 +5,9 @@
     "node": ">=18 <19"
   },
   "scripts": {
-    "preinstall": "npm link @angular/cli",
     "ng": "ng",
     "start": "node server.js",
-    "build": "npm install && ng build --legacy-peer-deps --prod",
+    "build": "npm install --legacy-peer-deps && ng build --legacy-peer-deps --prod",
     "postinstall": "npm run build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
