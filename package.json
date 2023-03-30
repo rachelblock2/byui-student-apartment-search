@@ -7,12 +7,13 @@
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
-    "build": "npm install; npm run build --prod --legacy-peer-deps",
+    "build": "npm install;npm run build --prod --legacy-peer-deps",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
   "private": true,
   "dependencies": {
+    "@angular-devkit/build-angular": "^12.2.18",
     "@angular/animations": "~12.2.0",
     "@angular/cdk": "^12.2.13",
     "@angular/cli": "^12.2.18",
