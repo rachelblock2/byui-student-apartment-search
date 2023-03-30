@@ -7,7 +7,7 @@
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
-    "build": "npm install --legacy-peer-deps && ng build",
+    "build": "npm install --legacy-peer-deps --openssl-legacy-provider && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
