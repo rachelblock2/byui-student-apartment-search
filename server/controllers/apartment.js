@@ -4,7 +4,6 @@ const path = require('path');
 const Apartment = require('../models/apartment');
 const ApartmentSuggestion = require('../models/apartment-suggestion');
 const jwt = require('jsonwebtoken');
-const puppeteer = require('puppeteer');
 var axios = require('axios');
 const {
   ObjectId
