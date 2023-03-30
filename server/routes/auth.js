@@ -43,7 +43,7 @@ router.post('/login',
 authController.login);
 
 // Needs to resend token because the state is refreshed
-router.get('/refreshToken', isAuth, authController.refreshToken);
+// router.get('/refreshToken', isAuth, authController.refreshToken);
 
 // Verifies a user is logged in and logs user out
 router.post('/logout', isAuth, authController.logout);
