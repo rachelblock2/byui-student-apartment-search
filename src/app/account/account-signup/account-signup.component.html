@@ -44,7 +44,7 @@
       <span
         *ngIf="
           !signupForm.get('email').valid &&
-          signupForm.get('email').touched &&
+          signupForm.get('email').touched ||
           signupForm.get('email').errors?.email
         "
         >Email is required! Please enter a valid email.</span
